@@ -1,11 +1,4 @@
-# code your activity here
-# or replace this file with your python activity file
-# import statements
 
-"""
-class exampleActivity(activity.Activity):
-
-"""
 
 
 # Sugar Imports
@@ -19,7 +12,7 @@ from gi.repository import Gtk
 from gettext import gettext as _
 
 
-class Example(Activity):
+class PlanetaryActivity(Activity):
     def __init__(self, sugar_handle):
         Activity.__init__(self, sugar_handle)
 
@@ -79,3 +72,4 @@ class Example(Activity):
 
     def emptyout(self, entry, event, output):
         output.set_text("")
+        

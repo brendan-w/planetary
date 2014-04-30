@@ -1,8 +1,8 @@
 [Activity]
-name = example
+name = Planetary
 bundle_id = example.laptop.org
-icon = exampleicon
-exec = sugar-activity activity.Example
-show_launcher = yes
+exec = sugar-activity PlanetaryActivity.PlanetaryActivity
+icon = planetary
 activity_version = 1
+show_launcher = yes
 license = GPLv2+
