@@ -11,11 +11,14 @@ from sugar3.activity.widgets import ActivityButton
 from gi.repository import Gtk
 from gettext import gettext as _
 
+import Planetary
+
 
 class PlanetaryActivity(Activity):
     def __init__(self, sugar_handle):
         Activity.__init__(self, sugar_handle)
 
+        
         # Create a Toolbar
         toolbar = Gtk.Toolbar()
 
@@ -32,6 +35,8 @@ class PlanetaryActivity(Activity):
 
         # Add Stop Button
         toolbar.insert(StopButton(self), -1)
+
+        
 
         # Create Container
         grid = Gtk.Grid()
@@ -72,4 +77,10 @@ class PlanetaryActivity(Activity):
 
     def emptyout(self, entry, event, output):
         output.set_text("")
+
         
+    def read_file(self, file_path):
+        pass
+
+    def write_file(self, file_path):
+        pass
