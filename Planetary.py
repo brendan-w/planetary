@@ -1,23 +1,34 @@
+#!/usr/bin/python
 
 
-from gi.repository import Gtk
-import json
 import pygame
+from gi.repository import Gtk
 
 
-class Planetary():
+class Planetary:
+    def __init__(self):
+        pass
 
-	def __init__(self):
-		self.running = True
+    # Called to save the state of the game to the Journal.
+    def write_file(self, file_path):
+        pass
+
+    # Called to load the state of the game from the Journal.
+    def read_file(self, file_path):
+        pass
+
+    # The main game loop.
+    def run(self):
+        pass
 
 
-
-
-
+# This function is called when the game is run directly from the command line:
+# ./Planetary.py
 def main():
     pygame.init()
-    pygame.display.set_mode((800, 600), pygame.RESIZABLE)
+    pygame.display.set_mode((0, 0), pygame.RESIZABLE)
     game = Planetary()
+    game.run()
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
