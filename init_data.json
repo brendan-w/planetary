@@ -1,12 +1,12 @@
 {
 	"questions": [
 		{
-			"question": "Which planet is closest to the sun?",
+			"question": "Which planet has life (that we know of)?",
 			"answers": [
 				{
-					"planet": "mercury",
-					"answer" : "Mercury is the closest planet to the sun",
-					"live": false
+					"planet": "earth",
+					"answer" : "<starting question>",
+					"live": true
 				}
 			]
 		},
@@ -16,10 +16,273 @@
 			"answers": [
 				{
 					"planet": "mercury",
-					"answer" : "Mercury is the closest planet to the sun",
+					"answer" : "<starting question>",
+					"live": true
+				}
+			]
+		},
+
+		{
+			"question": "Which planet is farthest from the sun?",
+			"answers": [
+				{
+					"planet": "uranus",
+					"answer" : "<starting question>",
+					"live": true
+				}
+			]
+		},
+
+		{
+			"question": "Which planets have no rings",
+			"answers": [
+				{
+					"planet": "mercury",
+					"answer" : "<starting question>",
+					"live": true
+				},
+				{
+					"planet": "venus",
+					"answer" : "<starting question>",
+					"live": true
+				},
+				{
+					"planet": "earth",
+					"answer" : "<starting question>",
+					"live": true
+				},
+				{
+					"planet": "mars",
+					"answer" : "<starting question>",
+					"live": true
+				},
+				{
+					"planet": "jupiter",
+					"answer" : "<starting question>",
+					"live": true
+				}
+			]
+		},
+
+		{
+			"question": "Which planets have rings",
+			"answers": [
+				{
+					"planet": "saturn",
+					"answer" : "<starting question>",
+					"live": true
+				},
+				{
+					"planet": "uranus",
+					"answer" : "<starting question>",
+					"live": true
+				}
+				{
+					"planet": "neptune",
+					"answer" : "<starting question>",
+					"live": true
+				}
+			]
+		},
+
+
+
+
+
+
+
+
+
+
+
+		{
+			"question": "Which planet has no moons?",
+			"answers": [
+				{
+					"planet": "mercury",
+					"answer" : "Mercury has no moons.",
+					"live": false
+				},
+				{
+					"planet": "venus",
+					"answer" : "Venus has no moons.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planet has no atmosphere?",
+			"answers": [
+				{
+					"planet": "mercury",
+					"answer" : "Mercury has no atmosphere.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planets are made of gas?",
+			"answers": [
+				{
+					"planet": "jupiter",
+					"answer" : "Jupiter is made of gas.",
+					"live": false
+				},
+				{
+					"planet": "saturn",
+					"answer" : "Saturn is made of gas.",
+					"live": false
+				},
+				{
+					"planet": "uranus",
+					"answer" : "Uranus is made of gas.",
+					"live": false
+				},
+				{
+					"planet": "neptune",
+					"answer" : "Neptune is made of gas.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planets have a solid surface (terrestrial)?",
+			"answers": [
+				{
+					"planet": "mercury",
+					"answer" : "Mercury has a solid surface.",
+					"live": false
+				},
+				{
+					"planet": "venus",
+					"answer" : "Venus has a solid surface.",
+					"live": false
+				},
+				{
+					"planet": "earth",
+					"answer" : "Earth has a solid surface.",
+					"live": false
+				},
+				{
+					"planet": "mars",
+					"answer" : "Mars has a solid surface.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "What is the biggest planet in out solar system?",
+			"answers": [
+				{
+					"planet": "jupiter",
+					"answer" : "Jupiter is the biggest planet in our solar system.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "What is the smallest planet in out solar system?",
+			"answers": [
+				{
+					"planet": "mercury",
+					"answer" : "Mercury is the smallest planet in our solar system.",
+					"live": false
+				}
+			]
+		},
+
+
+
+
+
+
+
+
+
+		{
+			"question": "Which planet spins backwards?",
+			"answers": [
+				{
+					"planet": "venus",
+					"answer" : "Venus spins backwards.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planet gets its color from iron minerals rusting (oxidizing)?",
+			"answers": [
+				{
+					"planet": "mars",
+					"answer" : "Mars is red because of iron minerals rusting (oxidizing)",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planet has two moons called Phobos and Deimos?",
+			"answers": [
+				{
+					"planet": "mars",
+					"answer" : "Mars has two moons called Phobos and Deimos",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planet has a red spot that is a giant storm?",
+			"answers": [
+				{
+					"planet": "jupiter",
+					"answer" : "The red spot on Jupiter is actually a giant storm.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planet has more than 50 moons?",
+			"answers": [
+				{
+					"planet": "jupiter",
+					"answer" : "Jupiter has more than 50 moons.",
+					"live": false
+				},
+				{
+					"planet": "saturn",
+					"answer" : "Saturn has more than 50 moons.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planet is made of mostly hydrogen and helium?",
+			"answers": [
+				{
+					"planet": "jupiter",
+					"answer" : "Jupiter is made of mostly hydrogen and helium.",
+					"live": false
+				},
+				{
+					"planet": "saturn",
+					"answer" : "Saturn is made of mostly hydrogen and helium.",
 					"live": false
 				}
 			]
 		}
+
+
+
+
+		
 	]
 }
