@@ -1,0 +1,38 @@
+/*
+
+Question set / Game state
+
+Information is organized by question.
+Each question can have multiple answers.
+The "live" properties indicate which answers (and therefore, questions) are in play
+
+This JSON specifically, is only used for starting a game.
+Once a game is started and saved, the instance JSON is saved (game state) to the journal.
+
+*/
+
+{
+	"questions": [
+		{
+			"question": "Which planet is closest to the sun?",
+			"answers": [
+				{
+					"planet": "mercury",
+					"answer" : "Mercury is the closest planet to the sun",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planet is closest to the sun?",
+			"answers": [
+				{
+					"planet": "mercury",
+					"answer" : "Mercury is the closest planet to the sun",
+					"live": false
+				}
+			]
+		}
+	]
+}
