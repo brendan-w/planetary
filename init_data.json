@@ -4,7 +4,7 @@
 			"question": "Which planet has life (that we know of)?",
 			"answers": [
 				{
-					"planet": "earth",
+					"object": "earth",
 					"answer" : "<starting question>",
 					"live": true
 				}
@@ -15,7 +15,7 @@
 			"question": "Which planet is closest to the sun?",
 			"answers": [
 				{
-					"planet": "mercury",
+					"object": "mercury",
 					"answer" : "<starting question>",
 					"live": true
 				}
@@ -26,7 +26,7 @@
 			"question": "Which planet is farthest from the sun?",
 			"answers": [
 				{
-					"planet": "uranus",
+					"object": "uranus",
 					"answer" : "<starting question>",
 					"live": true
 				}
@@ -37,27 +37,27 @@
 			"question": "Which planets have no rings",
 			"answers": [
 				{
-					"planet": "mercury",
+					"object": "mercury",
 					"answer" : "<starting question>",
 					"live": true
 				},
 				{
-					"planet": "venus",
+					"object": "venus",
 					"answer" : "<starting question>",
 					"live": true
 				},
 				{
-					"planet": "earth",
+					"object": "earth",
 					"answer" : "<starting question>",
 					"live": true
 				},
 				{
-					"planet": "mars",
+					"object": "mars",
 					"answer" : "<starting question>",
 					"live": true
 				},
 				{
-					"planet": "jupiter",
+					"object": "jupiter",
 					"answer" : "<starting question>",
 					"live": true
 				}
@@ -68,17 +68,17 @@
 			"question": "Which planets have rings",
 			"answers": [
 				{
-					"planet": "saturn",
+					"object": "saturn",
 					"answer" : "<starting question>",
 					"live": true
 				},
 				{
-					"planet": "uranus",
+					"object": "uranus",
 					"answer" : "<starting question>",
 					"live": true
 				}
 				{
-					"planet": "neptune",
+					"object": "neptune",
 					"answer" : "<starting question>",
 					"live": true
 				}
@@ -99,12 +99,12 @@
 			"question": "Which planet has no moons?",
 			"answers": [
 				{
-					"planet": "mercury",
+					"object": "mercury",
 					"answer" : "Mercury has no moons.",
 					"live": false
 				},
 				{
-					"planet": "venus",
+					"object": "venus",
 					"answer" : "Venus has no moons.",
 					"live": false
 				}
@@ -115,60 +115,8 @@
 			"question": "Which planet has no atmosphere?",
 			"answers": [
 				{
-					"planet": "mercury",
+					"object": "mercury",
 					"answer" : "Mercury has no atmosphere.",
-					"live": false
-				}
-			]
-		},
-
-		{
-			"question": "Which planets are made of gas?",
-			"answers": [
-				{
-					"planet": "jupiter",
-					"answer" : "Jupiter is made of gas.",
-					"live": false
-				},
-				{
-					"planet": "saturn",
-					"answer" : "Saturn is made of gas.",
-					"live": false
-				},
-				{
-					"planet": "uranus",
-					"answer" : "Uranus is made of gas.",
-					"live": false
-				},
-				{
-					"planet": "neptune",
-					"answer" : "Neptune is made of gas.",
-					"live": false
-				}
-			]
-		},
-
-		{
-			"question": "Which planets have a solid surface (terrestrial)?",
-			"answers": [
-				{
-					"planet": "mercury",
-					"answer" : "Mercury has a solid surface.",
-					"live": false
-				},
-				{
-					"planet": "venus",
-					"answer" : "Venus has a solid surface.",
-					"live": false
-				},
-				{
-					"planet": "earth",
-					"answer" : "Earth has a solid surface.",
-					"live": false
-				},
-				{
-					"planet": "mars",
-					"answer" : "Mars has a solid surface.",
 					"live": false
 				}
 			]
@@ -178,7 +126,7 @@
 			"question": "What is the biggest planet in out solar system?",
 			"answers": [
 				{
-					"planet": "jupiter",
+					"object": "jupiter",
 					"answer" : "Jupiter is the biggest planet in our solar system.",
 					"live": false
 				}
@@ -189,8 +137,97 @@
 			"question": "What is the smallest planet in out solar system?",
 			"answers": [
 				{
-					"planet": "mercury",
+					"object": "mercury",
 					"answer" : "Mercury is the smallest planet in our solar system.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planets are gas giants?",
+			"answers": [
+				{
+					"object": "jupiter",
+					"answer" : "Jupiter is a gas giant and has no solid surface.",
+					"live": false
+				},
+				{
+					"object": "saturn",
+					"answer" : "Saturn is a gas giant and has no solid surface.",
+					"live": false
+				},
+				{
+					"object": "uranus",
+					"answer" : "Uranus is a gas giant and has no solid surface.",
+					"live": false
+				},
+				{
+					"object": "neptune",
+					"answer" : "Neptune is a gas giant and has no solid surface.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planets have a solid surface (terrestrial)?",
+			"answers": [
+				{
+					"object": "mercury",
+					"answer" : "Mercury has a solid surface.",
+					"live": false
+				},
+				{
+					"object": "venus",
+					"answer" : "Venus has a solid surface.",
+					"live": false
+				},
+				{
+					"object": "earth",
+					"answer" : "Earth has a solid surface.",
+					"live": false
+				},
+				{
+					"object": "mars",
+					"answer" : "Mars has a solid surface.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planet has a molten metal core?",
+			"answers": [
+				{
+					"object": "mercury",
+					"answer" : "Mercury has a molten metal core.",
+					"live": false
+				},
+				{
+					"object": "earth",
+					"answer" : "Earth has a molten metal core.",
+					"live": false
+				},
+				{
+					"object": "mars",
+					"answer" : "Mars has a molten metal core.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planet is an ice giant (has an ice core)?",
+			"answers": [
+				{
+					"object": "uranus",
+					"answer" : "Uranus is an ice giant (has an ice core). ",
+					"live": false
+				},
+				{
+					"object": "neptune",
+					"answer" : "Neptune is an ice giant (has an ice core).",
 					"live": false
 				}
 			]
@@ -208,8 +245,35 @@
 			"question": "Which planet spins backwards?",
 			"answers": [
 				{
-					"planet": "venus",
-					"answer" : "Venus spins backwards.",
+					"object": "venus",
+					"answer" : "Venus spins backwards, meaning the sun rises in the west and sets in the east.",
+					"live": false
+				},
+				{
+					"object": "uranus",
+					"answer" : "Uranus spins backwards, meaning the sun rises in the west and sets in the east.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which planet rotates sideways?",
+			"answers": [
+				{
+					"object": "uranus",
+					"answer" : "The axis of rotation for Uranus is horizontal, so it rotates sideways.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "What is the windiest planet?",
+			"answers": [
+				{
+					"object": "neptune",
+					"answer" : "Neptune is the windiest planet, where the wind speed can be as fast as 2000 kilometers per hour.",
 					"live": false
 				}
 			]
@@ -219,7 +283,7 @@
 			"question": "Which planet gets its color from iron minerals rusting (oxidizing)?",
 			"answers": [
 				{
-					"planet": "mars",
+					"object": "mars",
 					"answer" : "Mars is red because of iron minerals rusting (oxidizing)",
 					"live": false
 				}
@@ -230,8 +294,8 @@
 			"question": "Which planet has two moons called Phobos and Deimos?",
 			"answers": [
 				{
-					"planet": "mars",
-					"answer" : "Mars has two moons called Phobos and Deimos",
+					"object": "mars",
+					"answer" : "Mars has two moons called Phobos and Deimos.",
 					"live": false
 				}
 			]
@@ -241,24 +305,30 @@
 			"question": "Which planet has a red spot that is a giant storm?",
 			"answers": [
 				{
-					"planet": "jupiter",
-					"answer" : "The red spot on Jupiter is actually a giant storm.",
+					"object": "jupiter",
+					"answer" : "The red spot on Jupiter is actually a giant storm that has been going on for years.",
 					"live": false
 				}
 			]
 		},
 
 		{
-			"question": "Which planet has more than 50 moons?",
+			"question": "Which planet has 67 moons?",
 			"answers": [
 				{
-					"planet": "jupiter",
-					"answer" : "Jupiter has more than 50 moons.",
+					"object": "jupiter",
+					"answer" : "Jupiter has 67 moons.",
 					"live": false
-				},
+				}
+			]
+		},
+
+		{
+			"question": "Which planet has 62 moons?",
+			"answers": [
 				{
-					"planet": "saturn",
-					"answer" : "Saturn has more than 50 moons.",
+					"object": "saturn",
+					"answer" : "Saturn has 62 moons.",
 					"live": false
 				}
 			]
@@ -268,13 +338,39 @@
 			"question": "Which planet is made of mostly hydrogen and helium?",
 			"answers": [
 				{
-					"planet": "jupiter",
+					"object": "jupiter",
 					"answer" : "Jupiter is made of mostly hydrogen and helium.",
 					"live": false
 				},
 				{
-					"planet": "saturn",
+					"object": "saturn",
 					"answer" : "Saturn is made of mostly hydrogen and helium.",
+					"live": false
+				},
+				{
+					"object": "uranus",
+					"answer" : "Uranus is made of mostly hydrogen and helium.",
+					"live": false
+				},
+				{
+					"object": "neptune",
+					"answer" : "Neptune is made of mostly hydrogen and helium.",
+					"live": false
+				}
+			]
+		},
+
+		{
+			"question": "Which gas planet is also made of water, ammonia and methane?",
+			"answers": [
+				{
+					"object": "uranus",
+					"answer" : "Uranus is also made of water, ammonia and methane.",
+					"live": false
+				},
+				{
+					"object": "neptune",
+					"answer" : "Neptune is also made of water, ammonia and methane.",
 					"live": false
 				}
 			]
