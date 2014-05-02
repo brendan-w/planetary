@@ -55,10 +55,14 @@ class Planetary:
                     self.running = False
 
 
-            # game logic
+            # switch for current screen
+            if self.currentScreen == self.homeScreen:
+                pass
+            elif self.currentScreen == self.playScreen:
+                pass
 
             # update the window surface
-            self.currentScreen.frame(None, True)
+            self.currentScreen.frame({"background":0})
 
             # keep at 30fps
             self.clock.tick(30)
