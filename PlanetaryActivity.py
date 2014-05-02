@@ -26,6 +26,14 @@ class PlanetaryActivity(sugar3.activity.activity.Activity):
         self.build_toolbar()
 
 
+        if handle.object_id == None:
+            print "Launched from home."
+        else:
+            print "Journal resume."
+
+        self.game.runs()
+
+
     def build_toolbar(self):
         toolbar_box = ToolbarBox()
         self.set_toolbar_box(toolbar_box)
@@ -47,6 +55,7 @@ class PlanetaryActivity(sugar3.activity.activity.Activity):
         toolbar_box.toolbar.insert(stop_button, -1)
         stop_button.show()
 
+    #called AFTER __init__ with temp file from journal
     def read_file(self, file_path):
         self.game.read_file(file_path)
 
