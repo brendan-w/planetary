@@ -11,6 +11,7 @@ from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.activity.widgets import StopButton
 
+import sugargame.canvas
 
 import Planetary
 
@@ -25,14 +26,20 @@ class PlanetaryActivity(sugar3.activity.activity.Activity):
         # Build the activity toolbar.
         self.build_toolbar()
 
-
+        '''
         if handle.object_id == None:
             print "Launched from home."
         else:
             print "Journal resume."
+        '''
 
-        self.game.runs()
+        # Build the pygame canvas
+        self.canvas = sugargame.canvas.PygameCanvas(self)
+        self.set_canvas(self.canvas)
+        self.canvas.grab_focus()
 
+        # Run!
+        self.canvas.run_pygame(self.game.run)
 
     def build_toolbar(self):
         toolbar_box = ToolbarBox()
