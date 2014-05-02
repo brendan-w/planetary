@@ -2,22 +2,30 @@
 
 
 import json
+from gi.repository import Gtk
 
 import pygame
 from pygame.locals import QUIT
 
-from gi.repository import Gtk
-
+from PlanetaryScreens import Home, Play
 
 
 class Planetary:
 
     def __init__(self):
+
+        # running vars
         self.running = True
         self.data = None  # check out init_data.json for the structure
-        self.window =pygame.display.get_surface()
         self.clock = pygame.time.Clock()
+        self.surface = pygame.display.get_surface()
 
+        # game screens
+        self.homeScreen = Home(pygame.display)
+        self.playScreen = Play(pygame.display)
+
+        # set the initial screen
+        self.currentScreen = self.homeScreen
 
     # Called to load the state of the game from the Journal.
     def read_file(self, file_path):
@@ -44,18 +52,19 @@ class Planetary:
             # read the daily news
             for event in pygame.event.get():
                 if event.type == QUIT:
-                    pygame.quit()
                     self.running = False
 
-            # list for the update regions
-            update_regions = list()
 
             # game logic
 
             # update the window surface
+            self.currentScreen.frame(None, True)
 
             # keep at 30fps
             self.clock.tick(30)
+
+        # End of game loop
+        pygame.quit()
         
 
 
