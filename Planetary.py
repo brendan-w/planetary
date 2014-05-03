@@ -27,6 +27,7 @@ class Planetary:
         # set the initial screen
         self.currentScreen = self.homeScreen
 
+
     # Called to load the state of the game from the Journal.
     def read_file(self, file_path):
         f = open(file_path, 'r')
@@ -54,7 +55,6 @@ class Planetary:
                 if event.type == QUIT:
                     self.running = False
 
-
             # switch for current screen
             if self.currentScreen == self.homeScreen:
                 pass
@@ -62,7 +62,7 @@ class Planetary:
                 pass
 
             # update the window surface
-            self.currentScreen.frame({"background":0})
+            self.currentScreen.frame()
 
             # keep at 30fps
             self.clock.tick(30)

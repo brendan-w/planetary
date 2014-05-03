@@ -1,10 +1,9 @@
 '''
-System for handling STATIC pygame screens efficiently
+System for handling pygame screens efficiently
 
 Screens are handed dictionaries containing the settings for the screen.
-The screen class filters this dictionary based on what has changed, and
-what needs refreshing.
-
+These settings are filtered for changes, and only the changed graphics
+are drawn to the screen. Switching screens forces all elements to be redrawn.
 '''
 
 import pygame
@@ -22,33 +21,30 @@ class Screen(object):
 		self.display = display
 		self.window = display.get_surface()
 		self.updateRegions = []
-		self.oldParams = {} 
+		self.params = {}
+		self.oldParams = {}
 
-	def filter(self, gameParams):
+	def isNewScreen(self):
 		global lastScreen
+		return (lastScreen != self)
 
-		if lastScreen != self:
-			# if the entire screen was changed, update everything
-			lastScreen = self
-			return gameParams
+	def getChanges(self):
+		if self.isNewScreen():
+			return self.params
 		else:
-			# find out which params changed
-			newParams = dict()
-			for key in gameParams:
-				if self.oldParams.has_key(key):
-					if self.oldParams[key] != gameParams[key]:
-						newParams[key] = gameParams[key]
-				else:
-					newParams[key] = gameParams[key]
+			changedParams = {}
+			for key in self.params:
+				if self.params[key] != self.oldParams[key]:
+					changedParams[key] = self.params[key]
+			return changedParams
 
-			self.oldParams = gameParams.copy()
-			return newParams
-
-	# default frame drawer, overriden in subclasses
+	# show the changes, increment the param dictionaries
 	def frame(self):
+		global lastScreen
+		lastScreen = self
 		self.display.update(self.updateRegions)
 		self.updateRegions = []
-
+		self.oldParams = self.params.copy()
 
 
 
@@ -59,18 +55,32 @@ class Home(Screen):
 	def __init__(self, display):
 		super(Home, self).__init__(display)
 
-	def frame(self, gameParams):
-		# figure out which components need updating
-		gameParams = super(Home, self).filter(gameParams)
+		# default parameter list
+		self.params = {
+			"background": False,
+		}
 
-		# update neccessary parts of this screen
-		for key in gameParams:
-			if key == "background":
-				self.window.fill(pygame.Color(255,255,255))
-				# self.updateRegions.append(pygame.Rect(0,0,x,y));
+		self.oldParams = self.params.copy()
 
-		# update the screen
+	def frame(self):
+		changedParams = super(Home, self).getChanges()
+
+		for key in changedParams:
+			self.updateRegions.append(self.draw(key));
+
 		super(Home, self).frame()
+
+	# object drawing routines. Returns Rect of area modified
+	def draw(self, key):
+		if key == "background":
+			print "draw"
+			if self.params[key]:
+				return pygame.Rect(0,0,0,0)
+			else:
+				return self.window.fill(pygame.Color(255,255,255))
+		elif key == "question":
+			pass
+
 
 
 
@@ -81,13 +91,3 @@ class Play(Screen):
 	def __init__(self, display):
 		super(Play, self).__init__(display)
 
-	def frame(self, gameParams):
-		# figure out which components need updating
-		gameParams = super(Home, self).filter(gameParams)
-
-		# update neccessary parts of this screen
-		for key in gameParams:
-			pass
-
-		# update the screen
-		super(Play, self).frame()
