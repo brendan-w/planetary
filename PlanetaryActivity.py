@@ -1,18 +1,20 @@
 
-#gtk
+# gtk
 from gi.repository import Gtk
 
-#pygame
+# pygame
 import pygame
 
-#sugar
+# sugar
 import sugar3.activity.activity
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.activity.widgets import ActivityToolbarButton
 from sugar3.activity.widgets import StopButton
 
+# sugargame
 import sugargame.canvas
 
+# app
 import Planetary
 
 

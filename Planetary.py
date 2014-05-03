@@ -1,13 +1,18 @@
 #!/usr/bin/python
 
-
+# python
 import json
+import random
+
+# gtk
 from gi.repository import Gtk
 
+# pygame
 import pygame
-from pygame.locals import QUIT
+from pygame.locals import QUIT, MOUSEBUTTONUP, MOUSEMOTION
 
-from PlanetaryScreens import Home, Play
+# app
+from PlanetaryScreens import loadAssets, Home, Play
 
 
 class Planetary:
@@ -18,6 +23,8 @@ class Planetary:
         self.running = True
         self.data = None  # check out init_data.json for the structure
         self.clock = pygame.time.Clock()
+        self.question = ""
+        self.answer = ""
 
 
     # Called to load the state of the game from the Journal.
@@ -35,6 +42,9 @@ class Planetary:
     # The main game loop.
     def run(self):
         
+        # load content
+        loadAssets()
+
         # game screens
         self.homeScreen = Home()
         self.playScreen = Play()
@@ -54,6 +64,10 @@ class Planetary:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     self.running = False
+                elif event.type == MOUSEBUTTONUP:
+                    pass
+                elif event.type == MOUSEMOTION:
+                    pass
 
             # switch for current screen
             
@@ -71,9 +85,17 @@ class Planetary:
         # End of game loop
         pygame.quit()
         
-
+    # force the entire screen to refresh
     def refresh():
         currentScreen.frame(True)
+
+    # retrieves a question in play from the list
+    def getQuestion():
+        pass
+
+    # retrieves a fact that was not in play from the list
+    def getFact():
+        pass
 
 
 # This function is called when the game is run directly from the command line:

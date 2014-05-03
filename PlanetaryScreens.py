@@ -10,8 +10,21 @@ draws the changed graphics. Switching screens forces all elements to be redrawn.
 import pygame
 from collections import OrderedDict
 
-
+# used for determining screen switches
 oldScreen = None
+
+
+'''
+Asset handler
+Call loadAssets AFTER pygame has initialized
+'''
+assets = {}
+
+def loadAssets():
+	global assets
+	assets = {
+		"test" : pygame.image.load("assets/python_test_600x600.png").convert_alpha()
+	}
 
 
 '''
@@ -62,11 +75,6 @@ class Home(Screen):
 	def __init__(self):
 		super(Home, self).__init__()
 
-		# load graphics for this screen
-		self.graphics = {
-			"test" : pygame.image.load("assets/python_test_600x600.png").convert_alpha()
-		}
-
 		# default parameter list
 		self.params = OrderedDict([
 			("background", False),
@@ -89,6 +97,8 @@ class Home(Screen):
 
 	# object drawing routines. Returns Rect of area modified
 	def draw(self, key, value):
+		global assets
+
 		if key == "background":
 			if value:
 				return pygame.Rect(0,0,0,0)
@@ -96,9 +106,14 @@ class Home(Screen):
 				return self.window.fill(pygame.Color(255,255,255))
 		elif key == "test":
 			if value:
-				return self.window.blit(self.graphics["test"], (0,0))
+				return self.window.blit(assets["test"], (0,0))
 			else:
 				return pygame.Rect(0,0,0,0)
+		else:
+			return pygame.Rect(0,0,0,0)
+
+	def click(event):
+		pass
 
 
 
