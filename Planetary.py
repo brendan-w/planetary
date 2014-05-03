@@ -72,6 +72,9 @@ class Planetary:
         pygame.quit()
         
 
+    def refresh():
+        currentScreen.frame(True)
+
 
 # This function is called when the game is run directly from the command line:
 # ./Planetary.py

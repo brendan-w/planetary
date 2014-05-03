@@ -46,9 +46,12 @@ class PlanetaryActivity(sugar3.activity.activity.Activity):
         self.set_toolbar_box(toolbar_box)
         toolbar_box.show()
 
+        # do we even need this?
+        '''
         activity_button = ActivityToolbarButton(self)
         toolbar_box.toolbar.insert(activity_button, -1)
         activity_button.show()
+        '''
 
         # Blank space (separator) and Stop button at the end:
 

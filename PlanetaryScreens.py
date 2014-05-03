@@ -31,10 +31,12 @@ class Screen(object):
 		global oldScreen
 		return (oldScreen != self)
 
-	def getChanges(self):
-		if self.isNewScreen():
+	def getChanges(self, forceAll):
+		if self.isNewScreen() or forceAll:
+			# update everythin
 			return self.params
 		else:
+			# update only things that changed
 			changedParams = OrderedDict()
 			for key in self.params:
 				if self.params[key] != self.oldParams[key]:
@@ -44,10 +46,10 @@ class Screen(object):
 	# show the changes, increment the param dictionaries
 	def frame(self):
 		global oldScreen
-		oldScreen = self
 		self.display.update(self.updateRegions)
 		self.updateRegions = []
 		self.oldParams = self.params.copy()
+		oldScreen = self
 
 
 
@@ -75,14 +77,15 @@ class Home(Screen):
 		self.oldParams = self.params.copy()
 
 	
-	def frame(self):
-		changedParams = super(Home, self).getChanges()
+	def frame(self, forceAll=False):
+		changedParams = super(Home, self).getChanges(forceAll)
 
 		for key in changedParams:
 			rect = self.draw(key, self.params[key])
 			self.updateRegions.append(rect);
 
 		super(Home, self).frame()
+
 
 	# object drawing routines. Returns Rect of area modified
 	def draw(self, key, value):
