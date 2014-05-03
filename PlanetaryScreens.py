@@ -62,15 +62,13 @@ class Home(Screen):
 
 		# load graphics for this screen
 		self.graphics = {
-			"test" : None,
+			"test" : pygame.image.load("assets/python_test_600x600.png").convert_alpha()
 		}
-		
-		self.graphics["test"] = pygame.image.load("assets/python_test_600x600.png")#.convert_alpha()
 
 		# default parameter list
 		self.params = OrderedDict([
 			("background", False),
-			("test", False),
+			("test", True),
 		])
 
 		# init the old parameters list

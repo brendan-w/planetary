@@ -19,13 +19,6 @@ class Planetary:
         self.data = None  # check out init_data.json for the structure
         self.clock = pygame.time.Clock()
 
-        # game screens
-        self.homeScreen = Home()
-        self.playScreen = Play()
-
-        # set the initial screen
-        self.currentScreen = self.homeScreen
-
 
     # Called to load the state of the game from the Journal.
     def read_file(self, file_path):
@@ -41,6 +34,14 @@ class Planetary:
 
     # The main game loop.
     def run(self):
+        
+        # game screens
+        self.homeScreen = Home()
+        self.playScreen = Play()
+
+        # set the initial screen
+        self.currentScreen = self.homeScreen
+
 
         # The main game loop.
         while self.running:
@@ -60,7 +61,7 @@ class Planetary:
                 pass
             elif self.currentScreen == self.playScreen:
                 pass
-
+            
             # update the window surface
             self.currentScreen.frame()
             
