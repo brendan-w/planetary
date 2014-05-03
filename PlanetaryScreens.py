@@ -62,19 +62,21 @@ class Home(Screen):
 
 		# load graphics for this screen
 		self.graphics = {
-			"test" : pygame.image.load("assets/python_test_600x600.png").convert()
+			"test" : None,
 		}
+		
+		self.graphics["test"] = pygame.image.load("assets/python_test_600x600.png")#.convert_alpha()
 
 		# default parameter list
 		self.params = OrderedDict([
 			("background", False),
-			("test", True),
+			("test", False),
 		])
 
 		# init the old parameters list
 		self.oldParams = self.params.copy()
 
-
+	
 	def frame(self):
 		changedParams = super(Home, self).getChanges()
 
@@ -96,8 +98,6 @@ class Home(Screen):
 				return self.window.blit(self.graphics["test"], (0,0))
 			else:
 				return pygame.Rect(0,0,0,0)
-
-
 
 
 

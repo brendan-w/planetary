@@ -41,7 +41,7 @@ class Planetary:
 
     # The main game loop.
     def run(self):
-        
+
         # The main game loop.
         while self.running:
             
@@ -55,6 +55,7 @@ class Planetary:
                     self.running = False
 
             # switch for current screen
+            
             if self.currentScreen == self.homeScreen:
                 pass
             elif self.currentScreen == self.playScreen:
@@ -62,7 +63,7 @@ class Planetary:
 
             # update the window surface
             self.currentScreen.frame()
-
+            
             # keep at 30fps
             self.clock.tick(30)
 
