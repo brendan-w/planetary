@@ -8,6 +8,7 @@ draws the changed graphics. Switching screens forces all elements to be redrawn.
 
 
 import pygame
+from collections import OrderedDict
 
 
 oldScreen = None
@@ -23,8 +24,8 @@ class Screen(object):
 		self.display = pygame.display
 		self.window = pygame.display.get_surface()
 		self.updateRegions = []
-		self.params = {}
-		self.oldParams = {}
+		self.params = OrderedDict()
+		self.oldParams = OrderedDict()
 
 	def isNewScreen(self):
 		global oldScreen
@@ -34,7 +35,7 @@ class Screen(object):
 		if self.isNewScreen():
 			return self.params
 		else:
-			changedParams = {}
+			changedParams = OrderedDict()
 			for key in self.params:
 				if self.params[key] != self.oldParams[key]:
 					changedParams[key] = self.params[key]
@@ -56,18 +57,19 @@ class Screen(object):
 Class that draws the home screen
 '''
 class Home(Screen):
-	def __init__(self, display):
-		super(Home, self).__init__(display)
+	def __init__(self):
+		super(Home, self).__init__()
 
 		# load graphics for this screen
 		self.graphics = {
-			"a" : "<pygame load call>"
+			"test" : pygame.image.load("assets/python_test_600x600.png").convert()
 		}
 
 		# default parameter list
-		self.params = {
-			"background": False,
-		}
+		self.params = OrderedDict([
+			("background", False),
+			("test", True),
+		])
 
 		# init the old parameters list
 		self.oldParams = self.params.copy()
@@ -89,8 +91,11 @@ class Home(Screen):
 				return pygame.Rect(0,0,0,0)
 			else:
 				return self.window.fill(pygame.Color(255,255,255))
-		elif key == "question":
-			pass
+		elif key == "test":
+			if value:
+				return self.window.blit(self.graphics["test"], (0,0))
+			else:
+				return pygame.Rect(0,0,0,0)
 
 
 
@@ -101,6 +106,6 @@ class Home(Screen):
 Class that draws the play screen
 '''
 class Play(Screen):
-	def __init__(self, display):
-		super(Play, self).__init__(display)
+	def __init__(self):
+		super(Play, self).__init__()
 
