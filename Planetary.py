@@ -18,11 +18,10 @@ class Planetary:
         self.running = True
         self.data = None  # check out init_data.json for the structure
         self.clock = pygame.time.Clock()
-        self.surface = pygame.display.get_surface()
 
         # game screens
-        self.homeScreen = Home(pygame.display)
-        self.playScreen = Play(pygame.display)
+        self.homeScreen = Home()
+        self.playScreen = Play()
 
         # set the initial screen
         self.currentScreen = self.homeScreen
