@@ -42,9 +42,6 @@ class Planetary:
 
     # The main game loop.
     def run(self):
-        
-        # load content
-        PlanetaryScreens.load()
 
         # game screens
         self.homeScreen = Home()
@@ -67,7 +64,7 @@ class Planetary:
                     self.running = False
                 elif event.type == MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
-                    
+
                 elif event.type == MOUSEMOTION:
                     pass
 

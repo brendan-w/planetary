@@ -16,19 +16,6 @@ from PlanetarySprites import Planet
 oldScreen = None
 
 
-'''
-Asset handler
-Call loadAssets AFTER pygame has initialized
-'''
-assets = {}
-
-def load():
-	global assets
-
-	assets = {
-		"test" : pygame.image.load("assets/python_test_600x600.png").convert_alpha()
-	}
-
 
 '''
 Base class for screens
@@ -119,30 +106,20 @@ class Play(Screen):
 		changedSprites = super(Play, self).getChanges(forceAll)
 
 		for key in changedSprites:
-			rect = self.draw(key, self.sprites[key])
+			rect = self.draw(key)
 			self.updateRegions.append(rect);
 
 		super(Play, self).frame()
 
 
 	# object drawing routines. Returns Rect of area modified
-	def draw(self, key, value):
-		global assets
+	def draw(self, key):
+		sprite = self.sprites[key]
 
-		if key == "background":
-			if value:
-				return pygame.Rect(0,0,0,0)
-			else:
-				return self.window.fill(pygame.Color(255,255,255))
-		elif key == "test":
-			if value:
-				return self.window.blit(assets["test"], (0,0))
-			else:
-				return pygame.Rect(0,0,0,0)
-		elif key == "earth":
-			return self.sprites["earth"].blitTo(self.window)
+		if isinstance(sprite, Planet):
+			return sprite.blitTo(self.window)
 		else:
-			return pygame.Rect(0,0,0,0)
+			return sprite.blitTo(self.window)
 
 	def click(self, event, point):
 		for param in self.sprites:
