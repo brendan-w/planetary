@@ -66,10 +66,10 @@ class Screen(object):
 			return self.params
 		else:
 			# update only things that changed
-			changedParams = OrderedDict()
+			changedParams = self.params.copy()
 			for key in self.params:
-				if self.params[key] != self.oldParams[key]:
-					changedParams[key] = self.params[key]
+				if self.params[key] == self.oldParams[key]:
+					del changedParams[key]
 			return changedParams
 
 	# show the changes, increment the param dictionaries
@@ -145,6 +145,7 @@ class Play(Screen):
 		# default parameter list
 		self.params = OrderedDict([
 			("background", False),
+			("test", True),
 			("mercury", (0.0, 0.0)), # (glow-alpha, glow-alpha-speed)
 			("venus",   (0.0, 0.0)),
 			("earth",   (0.0, 0.0)),
@@ -153,7 +154,6 @@ class Play(Screen):
 			("saturn",  (0.0, 0.0)),
 			("uranus",  (0.0, 0.0)),
 			("neptune", (0.0, 0.0)),
-			("test", True),
 		])
 
 		# init the old parameters list
