@@ -66,7 +66,8 @@ class Planetary:
                 if event.type == QUIT:
                     self.running = False
                 elif event.type == MOUSEBUTTONUP:
-                    pass
+                    pos = pygame.mouse.get_pos()
+                    
                 elif event.type == MOUSEMOTION:
                     pass
 
