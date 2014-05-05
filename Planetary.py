@@ -12,7 +12,8 @@ import pygame
 from pygame.locals import QUIT, MOUSEBUTTONUP, MOUSEMOTION
 
 # app
-from PlanetaryScreens import loadAssets, Home, Play
+import PlanetaryScreens
+from PlanetaryScreens import Home, Play
 
 
 class Planetary:
@@ -43,14 +44,14 @@ class Planetary:
     def run(self):
         
         # load content
-        loadAssets()
+        PlanetaryScreens.load()
 
         # game screens
         self.homeScreen = Home()
         self.playScreen = Play()
 
         # set the initial screen
-        self.currentScreen = self.homeScreen
+        self.currentScreen = self.playScreen
 
 
         # The main game loop.
@@ -86,15 +87,15 @@ class Planetary:
         pygame.quit()
         
     # force the entire screen to refresh
-    def refresh():
-        currentScreen.frame(True)
+    def refresh(self):
+        self.currentScreen.frame(True)
 
     # retrieves a question in play from the list
-    def getQuestion():
+    def getQuestion(self):
         pass
 
     # retrieves a fact that was not in play from the list
-    def getFact():
+    def getFact(self):
         pass
 
 
