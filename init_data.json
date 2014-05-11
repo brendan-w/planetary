@@ -1,38 +1,98 @@
 {
 	"questions": [
 		{
+			"question": "Click on Mercury",
+			"fact": "This is Mercury.",
+			"answers": ["mercury"],
+			"live": true
+		},
+
+		{
+			"question": "Click on Venus",
+			"fact": "This is Venus.",
+			"answers": ["venus"],
+			"live": true
+		},
+
+		{
+			"question": "Click on Earth",
+			"fact": "This is Earth.",
+			"answers": ["venus"],
+			"live": true
+		},
+
+		{
+			"question": "Click on Mars",
+			"fact": "This is Mars.",
+			"answers": ["venus"],
+			"live": true
+		},
+
+		{
+			"question": "Click on Jupiter",
+			"fact": "This is Jupiter.",
+			"answers": ["venus"],
+			"live": true
+		},
+
+		{
+			"question": "Click on Saturn",
+			"fact": "This is Saturn.",
+			"answers": ["venus"],
+			"live": true
+		},
+
+		{
+			"question": "Click on Uranus",
+			"fact": "This is Uranus.",
+			"answers": ["venus"],
+			"live": true
+		},
+
+		{
+			"question": "Click on Neptune",
+			"fact": "This is Neptune.",
+			"answers": ["neptune"],
+			"live": true
+		},
+
+
+
+
+
+		{
 			"question": "Which planet has life (that we know of)?",
 			"fact": "Earth is the only planet with life on it (that we know of).",
 			"answers": ["earth"],
-			"live": true
+			"live": false
 		},
 
 		{
 			"question": "Which planet is closest to the sun?",
 			"fact": "Mercury is the closest planet to the sun.",
 			"answers": ["mercury"],
-			"live": true
+			"live": false
 		},
 
 		{
 			"question": "Which planet is farthest from the sun?",
-			"fact": "uranus is the farthest planet from the sun.",
+			"fact": "Uranus is the farthest planet from the sun.",
 			"answers": ["uranus"],
-			"live": true
+			"live": false
 		},
 
 		{
 			"question": "Which planets have no rings",
 			"fact": "Mercury, Venus, Earth, Mars, and Jupiter have no visible rings.",
 			"answers": ["mercury", "venus", "earth", "mars", "jupiter"],
-			"live": true
+			"live": false
 		},
 
 		{
 			"question": "Which planets have rings",
-			"fact": "Saturn, Uranus, Neptune",
+			"fact": "Saturn, Uranus, Neptune have rings",
 			"answers": ["saturn", "uranus", "neptune"],
-			"live": true
+			"live": false
 		},
 
 
@@ -42,48 +102,56 @@
 
 		{
 			"question": "Which planet has no moons?",
+			"fact": "Mercury and Venus have no moons.",
 			"answers": ["mercury", "venus"],
 			"live": false
 		},
 
 		{
 			"question": "Which planet has no atmosphere?",
+			"fact": "Mercury has no atmosphere (air).",
 			"answers": ["mercury"],
 			"live": false
 		},
 
 		{
 			"question": "What is the biggest planet in out solar system?",
+			"fact": "Jupiter is the biggest planet in our solar system.",
 			"answers": ["jupiter"],
 			"live": false
 		},
 
 		{
 			"question": "What is the smallest planet in out solar system?",
+			"fact": "Mercury is the smallest planet in our solar system.",
 			"answers": ["mercury"],
 			"live": false
 		},
 
 		{
 			"question": "Which planets are gas giants?",
+			"fact": "Jupiter, Saturn, Uranus and Neptune are known as gas giants because they are made of gas.",
 			"answers": ["jupiter", "saturn", "uranus", "neptune"],
 			"live": false
 		},
 
 		{
 			"question": "Which planets have a solid surface (terrestrial)?",
+			"fact": "Mercury, Venus, Earth and Mars have solid surfaces (they are \"terrestrial\").",
 			"answers": ["mercury", "venus", "earth", "mars"],
 			"live": false
 		},
 
 		{
 			"question": "Which planet has a molten metal core?",
+			"fact": "Mercury, Earth and Mars have molten metal cores.",
 			"answers": ["mercury", "earth", "mars"],
 			"live": false
 		},
 
 		{
 			"question": "Which planet is an ice giant (has an ice core)?",
+			"fact": "Uranus and Neptune are known as ice giants because there cores are made of ice",
 			"answers": ["uranus", "neptune"],
 			"live": false
 		},
@@ -98,60 +166,70 @@
 
 		{
 			"question": "Which planet spins backwards?",
+			"fact": "Venus and Uranus spin backwards. The sun rises in the west, and sets in the east.",
 			"answers": ["venus", "uranus"],
 			"live": false
 		},
 
 		{
 			"question": "Which planet rotates sideways?",
+			"fact": "Uranus rotates on its side.",
 			"answers": ["uranus"],
 			"live": false
 		},
 
 		{
 			"question": "What is the windiest planet?",
+			"fact": "Neptune is the windiest planet, where wind speeds can reach 2,000 kilometers per hour.",
 			"answers": ["neptune"],
 			"live": false
 		},
 
 		{
 			"question": "Which planet gets its color from iron minerals rusting (oxidizing)?",
+			"fact": "Mars is red because iron mineral on the surface are rusting (oxidizing).",
 			"answers": ["mars"],
 			"live": false
 		},
 
 		{
 			"question": "Which planet has two moons called Phobos and Deimos?",
+			"fact": "Mars has two moons called Phobos and Deimos.",
 			"answers": ["mars"],
 			"live": false
 		},
 
 		{
 			"question": "Which planet has a red spot that is a giant storm?",
+			"fact": "The red spot on Jupiter is a giant storm.",
 			"answers": ["jupiter"],
 			"live": false
 		},
 
 		{
 			"question": "Which planet has 67 moons?",
+			"fact": "Juptier has 67 known moons, the most out of all the planets.",
 			"answers": ["jupiter"],
 			"live": false
 		},
 
 		{
 			"question": "Which planet has 62 moons?",
+			"fact": "Saturn has 62 moons.",
 			"answers": ["saturn"],
 			"live": false
 		},
 
 		{
 			"question": "Which planet is made of mostly hydrogen and helium?",
+			"fact": "The gas giants (Jupiter, Saturn, Uranus and Neptune) are mostly made of hydrogen and helium gas.",
 			"answers": ["jupiter", "saturn", "uranus", "neptune"],
 			"live": false
 		},
 
 		{
 			"question": "Which gas planet is also made of water, ammonia and methane?",
+			"fact": "The ice giants (Uranus and Neptune) are mostly made of water, ammonia and methane.",
 			"answers": ["uranus", "neptune"],
 			"live": false
 		}
