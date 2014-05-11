@@ -1,4 +1,5 @@
 
+import math
 import pygame
 from pygame.sprite import Sprite
 
@@ -13,7 +14,7 @@ class DisplayObject(Sprite):
 		self.active = True
 		self.x = pos[0]
 		self.y = pos[1]
-		self.image = pygame.image.load(image).convert_alpha()
+		self.image = image
 		self.mask = pygame.mask.from_surface(self.image)
 		self.rect = self.image.get_rect()
 
@@ -26,7 +27,7 @@ class DisplayObject(Sprite):
 		return self.rect
 
 	def pointCollide(self, point):
-		if self.rect.collidepoint(point):
+		if self.rect.collidepoint(point) and self.mask != None:
 			point = (point[0] - self.x, point[1] - self.y)
 			return self.mask.get_at(point)
 		else:
@@ -49,9 +50,32 @@ Subclasses of DisplayObject
 '''
 
 
+class TiledBackground(DisplayObject):
+	def __init__(self, tilePath):
+		tile = pygame.image.load(tilePath).convert_alpha()
+		tileWidth = tile.get_width()
+		tileHeight = tile.get_height()
+
+		screen = pygame.display.get_surface()
+		screenWidth = screen.get_width()
+		screenHeight = screen.get_height()
+
+		# tile the image
+		image = pygame.Surface( (screenWidth, screenHeight) )
+		xTiles = int(math.ceil(screenWidth / tileWidth))
+		yTiles = int(math.ceil(screenHeight / tileHeight))
+
+		for x in range(xTiles):
+			for y in range(yTiles):
+				image.blit(tile, (x * tileWidth, y * tileHeight) )		
+
+		super(TiledBackground, self).__init__( (0,0), image)
+
+
 class Planet(DisplayObject):
 
-	def __init__(self, pos, image):
+	def __init__(self, pos, imagePath):
+		image = pygame.image.load(imagePath).convert_alpha()
 		super(Planet, self).__init__(pos, image)
 
 	def setGlow(self):

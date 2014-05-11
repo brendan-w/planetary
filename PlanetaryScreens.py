@@ -11,7 +11,7 @@ elements to be redrawn.
 import pygame
 from collections import OrderedDict
 
-from PlanetarySprites import Planet
+from PlanetarySprites import Planet, TiledBackground
 
 # used for determining screen switches
 oldScreen = None
@@ -44,11 +44,13 @@ class Screen(object):
 			# update only things that changed
 			changedSprites = self.sprites.copy()
 			for key in self.sprites:
-				if self.sprites[key].hash() == self.oldSprites[key]:
-					del changedSprites[key]
+				if self.oldSprites.has_key(key):
+					if self.sprites[key].hash() == self.oldSprites[key]:
+						del changedSprites[key]
 			return changedSprites
 
 	def saveOld(self):
+		oldScreen = self
 		self.oldSprites = self.sprites.copy()
 		for key in self.sprites:
 			self.oldSprites[key] = self.sprites[key].hash()
@@ -67,7 +69,6 @@ class Screen(object):
 		self.display.update(self.updateRegions)
 		self.updateRegions = []
 		self.saveOld()
-		oldScreen = self
 
 	def pointCollide(self, point):
 		response = ""
@@ -75,8 +76,6 @@ class Screen(object):
 			if self.sprites[key].pointCollide(point):
 				response = key
 		return response
-
-
 
 
 
@@ -96,8 +95,6 @@ class Home(Screen):
 
 
 
-
-
 '''
 Class that draws the play screen
 '''
@@ -106,6 +103,7 @@ class Play(Screen):
 		super(Play, self).__init__()
 
 		self.sprites = OrderedDict([
+			("background", TiledBackground("assets/space.png")),
 			("mercury", Planet((50, 50), "assets/earth.png")),
 			("venus"  , Planet((50, 50), "assets/earth.png")),
 			("earth"  , Planet((50, 50), "assets/earth.png")),
@@ -116,7 +114,7 @@ class Play(Screen):
 			("neptune", Planet((50, 50), "assets/earth.png")),
 		])
 
-		super(Play, self).saveOld()
+		#super(Play, self).saveOld()
 
 	# object drawing routines. Returns Rect of area modified
 	def draw(self, key, sprite):
