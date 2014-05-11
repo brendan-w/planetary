@@ -12,6 +12,7 @@ import pygame
 from collections import OrderedDict
 
 from PlanetarySprites import Planet, TiledBackground
+from PlanetaryConstants import *
 
 # used for determining screen switches
 oldScreen = None
@@ -104,14 +105,14 @@ class Play(Screen):
 
 		self.sprites = OrderedDict([
 			("background", TiledBackground("assets/space.png")),
-			("mercury", Planet((50, 50), "assets/earth.png")),
-			("venus"  , Planet((50, 50), "assets/earth.png")),
-			("earth"  , Planet((50, 50), "assets/earth.png")),
-			("mars"   , Planet((50, 50), "assets/earth.png")),
-			("jupiter", Planet((50, 50), "assets/earth.png")),
-			("saturn" , Planet((50, 50), "assets/earth.png")),
-			("uranus" , Planet((50, 50), "assets/earth.png")),
-			("neptune", Planet((50, 50), "assets/earth.png")),
+			("mercury", Planet(MERCURY_POS, MERCURY_SIZE, "assets/mercury.png")),
+			("venus"  , Planet(VENUS_POS,   VENUS_SIZE,   "assets/venus.png")),
+			("earth"  , Planet(EARTH_POS,   EARTH_SIZE,   "assets/earth.png")),
+			("mars"   , Planet(MARS_POS,    MARS_SIZE,    "assets/mars.png")),
+			("jupiter", Planet(JUPITER_POS, JUPITER_SIZE, "assets/jupiter.png")),
+			("saturn" , Planet(SATURN_POS,  SATURN_SIZE,  "assets/saturn.png")),
+			("uranus" , Planet(URANUS_POS,  URANUS_SIZE,  "assets/uranus.png")),
+			("neptune", Planet(NEPTUNE_POS, NEPTUNE_SIZE, "assets/neptune.png")),
 		])
 
 		#super(Play, self).saveOld()

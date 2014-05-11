@@ -2,6 +2,7 @@
 import math
 import pygame
 from pygame.sprite import Sprite
+from pygame.transform import scale
 
 
 '''
@@ -74,8 +75,9 @@ class TiledBackground(DisplayObject):
 
 class Planet(DisplayObject):
 
-	def __init__(self, pos, imagePath):
+	def __init__(self, pos, size, imagePath):
 		image = pygame.image.load(imagePath).convert_alpha()
+		image = scale(image, size)
 		super(Planet, self).__init__(pos, image)
 
 	def setGlow(self):
