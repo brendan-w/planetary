@@ -2,6 +2,7 @@
 import math
 import pygame
 from pygame.sprite import Sprite
+from pygame.font import Font
 from pygame.transform import scale
 
 
@@ -10,7 +11,7 @@ Base graphics class
 '''
 
 class DisplayObject(Sprite):
-	def __init__(self, pos, image):
+	def __init__(self, pos, image=None):
 		Sprite.__init__(self)
 		self.active = True
 		self.x = pos[0]
@@ -43,7 +44,7 @@ class DisplayObject(Sprite):
 		self.y += p.y
 
 	def hash(self):
-		return (self.x, self.y)
+		return (self.x, self.y, self.active)
 
 
 '''
@@ -82,3 +83,14 @@ class Planet(DisplayObject):
 
 	def setGlow(self):
 		pass
+
+class TextBox(DisplayObject):
+	def __init__(self, pos, imagePath, fontSize, fontPath):
+		self.text = ""
+		self.font = Font(fontPath, fontSize)
+		image = pygame.image.load(imagePath).convert_alpha()
+		super(TextBox, self).__init__(pos, image)
+
+	def hash(self):
+		return super(TextBox, self).hash() + (self.text,)
+		

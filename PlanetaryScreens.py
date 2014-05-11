@@ -106,6 +106,7 @@ class Play(Screen):
 
 		self.sprites = OrderedDict([
 			("background", TiledBackground("assets/space.png")),
+			#("mercury", TextBox(QUESTION_POS, QUESTION_FONT_SIZE, "assets/titillium-regular.ttf")),
 			("mercury", Planet(MERCURY_POS, MERCURY_SIZE, "assets/mercury.png")),
 			("venus"  , Planet(VENUS_POS,   VENUS_SIZE,   "assets/venus.png")),
 			("earth"  , Planet(EARTH_POS,   EARTH_SIZE,   "assets/earth.png")),

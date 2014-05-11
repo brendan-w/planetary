@@ -3,6 +3,8 @@
 Planet layout information
 '''
 
+QUESTION_POS = (0,0)
+QUESTION_FONT_SIZE = 20
 
 MERCURY_SIZE = (30, 30)
 VENUS_SIZE =   (60, 60)
