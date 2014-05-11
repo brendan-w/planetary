@@ -22,7 +22,7 @@ class DisplayObject(Sprite):
 			self.rect = surface.blit(self.image, (self.x, self.y))
 		else:
 			self.rect = pygame.Rect(0,0,0,0)
-			
+
 		return self.rect
 
 	def pointCollide(self, point):
@@ -40,7 +40,7 @@ class DisplayObject(Sprite):
 		self.x += p.x
 		self.y += p.y
 
-	def getCompare(self):
+	def hash(self):
 		return (self.x, self.y)
 
 

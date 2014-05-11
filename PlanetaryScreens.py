@@ -1,9 +1,10 @@
 '''
 System for handling STATIC pygame screens efficiently
 
-Each screen object has a dict of settings called "params" that is modified by the game.
-When frame() is called on a screen, it filters this dict for changes, and only
-draws the changed graphics. Switching screens forces all elements to be redrawn.
+Each screen object has an OrderedDict of DisplayObjects that can be modified by
+the game. When frame() is called on a screen, it filters for changes in each
+sprites attributes, and blits the changed graphics. Switching screens forces all
+elements to be redrawn.
 '''
 
 
@@ -19,7 +20,8 @@ oldScreen = None
 
 '''
 Base class for screens
-Handles parameter changes and update regions
+Handles sprite changes, update regions, and clicks
+Subclasses MUST implement draw(key, sprite)
 '''
 class Screen(object):
 
@@ -42,23 +44,37 @@ class Screen(object):
 			# update only things that changed
 			changedSprites = self.sprites.copy()
 			for key in self.sprites:
-				if self.sprites[key].getCompare() == self.oldSprites[key]:
+				if self.sprites[key].hash() == self.oldSprites[key]:
 					del changedSprites[key]
 			return changedSprites
 
 	def saveOld(self):
 		self.oldSprites = self.sprites.copy()
 		for key in self.sprites:
-			self.oldSprites[key] = self.sprites[key].getCompare()
+			self.oldSprites[key] = self.sprites[key].hash()
 
 
 	# show the changes, increment the param dictionaries
-	def frame(self):
+	def frame(self, forceAll=False):
 		global oldScreen
+
+		changedSprites = self.getChanges(forceAll)
+
+		for key in changedSprites:
+			rect = self.draw(key, self.sprites[key])
+			self.updateRegions.append(rect);
+
 		self.display.update(self.updateRegions)
 		self.updateRegions = []
 		self.saveOld()
 		oldScreen = self
+
+	def pointCollide(self, point):
+		response = ""
+		for key in self.sprites:
+			if self.sprites[key].pointCollide(point):
+				response = key
+		return response
 
 
 
@@ -101,29 +117,10 @@ class Play(Screen):
 		])
 
 		super(Play, self).saveOld()
-	
-	def frame(self, forceAll=False):
-		changedSprites = super(Play, self).getChanges(forceAll)
-
-		for key in changedSprites:
-			rect = self.draw(key)
-			self.updateRegions.append(rect);
-
-		super(Play, self).frame()
-
 
 	# object drawing routines. Returns Rect of area modified
-	def draw(self, key):
-		sprite = self.sprites[key]
-
+	def draw(self, key, sprite):
 		if isinstance(sprite, Planet):
 			return sprite.blitTo(self.window)
 		else:
 			return sprite.blitTo(self.window)
-
-	def pointCollide(self, point):
-		response = ""
-		for key in self.sprites:
-			if self.sprites[key].pointCollide(point):
-				response = key
-		return response
