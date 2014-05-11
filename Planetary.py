@@ -9,7 +9,7 @@ from gi.repository import Gtk
 
 # pygame
 import pygame
-from pygame.locals import QUIT, MOUSEBUTTONUP, MOUSEMOTION
+from pygame.locals import QUIT, MOUSEBUTTONUP, MOUSEMOTION, VIDEORESIZE, ACTIVEEVENT
 
 # app
 import PlanetaryScreens
@@ -21,9 +21,10 @@ class Planetary:
     def __init__(self):
 
         # running vars
-        self.running = True
+        self.running = True # controls the exit of the game loop
         self.data = None  # check out init_data.json for the structure
-        self.clock = pygame.time.Clock()
+        self.clock = pygame.time.Clock() # controls the frame rate
+        self.forceAll = False # force an entire repaint of the screen on the next frame
         self.question = ""
         self.answer = ""
 
@@ -60,33 +61,39 @@ class Planetary:
 
             # read the daily news
             for event in pygame.event.get():
-                if event.type == QUIT:
-                    self.running = False
-                elif event.type == MOUSEBUTTONUP:
-                    pos = pygame.mouse.get_pos()
 
-                elif event.type == MOUSEMOTION:
-                    pass
+                e = event.type
+                
+                if e == QUIT:
+                    self.running = False
+                elif e == VIDEORESIZE or e == ACTIVEEVENT:
+                    self.forceAll = True
+                elif e == MOUSEBUTTONUP:
+                    pos = pygame.mouse.get_pos()
+                    name = self.currentScreen.pointCollide(pos)
+
+                    print name
+
+                elif e == MOUSEMOTION:
+                    pos = pygame.mouse.get_pos()
+                    name = self.currentScreen.pointCollide(pos)
 
             # switch for current screen
-            
             if self.currentScreen == self.homeScreen:
                 pass
             elif self.currentScreen == self.playScreen:
                 pass
             
-            # update the window surface
-            self.currentScreen.frame()
-            
+            # update the screen
+            self.currentScreen.frame(self.forceAll)
+            self.forceAll = False
+
             # keep at 30fps
             self.clock.tick(30)
 
         # End of game loop
         pygame.quit()
-        
-    # force the entire screen to refresh
-    def refresh(self):
-        self.currentScreen.frame(True)
+
 
     # retrieves a question in play from the list
     def getQuestion(self):

@@ -121,7 +121,9 @@ class Play(Screen):
 		else:
 			return sprite.blitTo(self.window)
 
-	def click(self, event, point):
-		for param in self.sprites:
-			if sprites.has_key(param):
-				pass
+	def pointCollide(self, point):
+		response = ""
+		for key in self.sprites:
+			if self.sprites[key].pointCollide(point):
+				response = key
+		return response

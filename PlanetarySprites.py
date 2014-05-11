@@ -19,12 +19,18 @@ class DisplayObject(Sprite):
 
 	def blitTo(self, surface):
 		if self.active:
-			return surface.blit(self.image, (self.x, self.y))
+			self.rect = surface.blit(self.image, (self.x, self.y))
 		else:
-			return pygame.Rect(0,0,0,0)
+			self.rect = pygame.Rect(0,0,0,0)
+			
+		return self.rect
 
-	def clickMask(self, point):
-		return self.mask.get_at(point)
+	def pointCollide(self, point):
+		if self.rect.collidepoint(point):
+			point = (point[0] - self.x, point[1] - self.y)
+			return self.mask.get_at(point)
+		else:
+			return False
 
 	def setPos(self, p):
 		self.x = p.x
