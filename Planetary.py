@@ -61,20 +61,18 @@ class Planetary:
 
             # read the daily news
             for event in pygame.event.get():
-
-                e = event.type
-                
-                if e == QUIT:
+                if event.type == QUIT:
                     self.running = False
-                elif e == VIDEORESIZE or e == ACTIVEEVENT:
+
+                elif event.type == VIDEORESIZE or event.type == ACTIVEEVENT:
                     self.forceAll = True
-                elif e == MOUSEBUTTONUP:
+
+                elif event.type == MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
                     name = self.currentScreen.pointCollide(pos)
-
                     print name
 
-                elif e == MOUSEMOTION:
+                elif event.type == MOUSEMOTION:
                     pos = pygame.mouse.get_pos()
                     name = self.currentScreen.pointCollide(pos)
 

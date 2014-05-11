@@ -71,6 +71,7 @@ class Screen(object):
 		self.updateRegions = []
 		self.saveOld()
 
+	# returns the key of the topmost sprite that collides with the point
 	def pointCollide(self, point):
 		response = ""
 		for key in self.sprites:
