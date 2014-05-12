@@ -125,6 +125,8 @@ class Play(Screen):
 	# object drawing routines. Returns Rect of area modified
 	def draw(self, key, sprite):
 		if isinstance(sprite, Planet):
+			# blit the portion of the background
+			self.sprites[BACKGROUND].blitPortion(self.window, sprite.rect)
 			return sprite.blitTo(self.window)
 		else:
 			return sprite.blitTo(self.window)

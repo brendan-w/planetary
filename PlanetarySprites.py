@@ -36,6 +36,9 @@ class DisplayObject(Sprite):
 			return self.mask.get_at(point)
 		else:
 			return False
+	
+	def animate(self):
+		pass
 
 	def setPos(self, p):
 		self.x = p.x
@@ -75,11 +78,9 @@ class TiledBackground(DisplayObject):
 
 		super(TiledBackground, self).__init__( (0,0), image)
 
-	def blitTo(self, surface):
-		return super(TiledBackground, self).blitTo(surface)
+	def blitPortion(self, surface, rect):
+		return surface.blit(self.image, (rect[0], rect[1]), rect)
 
-	def animate(self):
-		pass
 
 
 class Planet(DisplayObject):
