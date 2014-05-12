@@ -61,6 +61,9 @@ class Screen(object):
 	def frame(self, forceAll=False):
 		global oldScreen
 
+		for key in self.sprites:
+			self.sprites[key].animate()
+
 		changedSprites = self.getChanges(forceAll)
 
 		for key in changedSprites:
@@ -79,8 +82,8 @@ class Screen(object):
 				response = key
 		return response
 
-
-
+	def mousemove(self, point):
+		pass
 
 
 
@@ -106,15 +109,15 @@ class Play(Screen):
 
 		self.sprites = OrderedDict([
 			("background", TiledBackground("assets/space.png")),
-			#("mercury", TextBox(QUESTION_POS, QUESTION_FONT_SIZE, "assets/titillium-regular.ttf")),
-			("mercury", Planet(MERCURY_POS, MERCURY_SIZE, "assets/mercury.png")),
-			("venus"  , Planet(VENUS_POS,   VENUS_SIZE,   "assets/venus.png")),
-			("earth"  , Planet(EARTH_POS,   EARTH_SIZE,   "assets/earth.png")),
-			("mars"   , Planet(MARS_POS,    MARS_SIZE,    "assets/mars.png")),
-			("jupiter", Planet(JUPITER_POS, JUPITER_SIZE, "assets/jupiter.png")),
-			("saturn" , Planet(SATURN_POS,  SATURN_SIZE,  "assets/saturn.png")),
-			("uranus" , Planet(URANUS_POS,  URANUS_SIZE,  "assets/uranus.png")),
-			("neptune", Planet(NEPTUNE_POS, NEPTUNE_SIZE, "assets/neptune.png")),
+			#("question", TextBox(QUESTION_POS, QUESTION_FONT_SIZE, "assets/titillium-regular.ttf")),
+			(MERCURY, Planet(MERCURY_POS, "assets/mercury.png", "assets/mercury_glow.png")),
+			(VENUS  , Planet(VENUS_POS,   "assets/venus.png",   "assets/venus_glow.png")),
+			(EARTH  , Planet(EARTH_POS,   "assets/earth.png",   "assets/earth_glow.png")),
+			(MARS   , Planet(MARS_POS,    "assets/mars.png",    "assets/mars_glow.png")),
+			(JUPITER, Planet(JUPITER_POS, "assets/jupiter.png", "assets/jupiter_glow.png")),
+			(SATURN , Planet(SATURN_POS,  "assets/saturn.png",  "assets/saturn_glow.png")),
+			(URANUS , Planet(URANUS_POS,  "assets/uranus.png",  "assets/uranus_glow.png")),
+			(NEPTUNE, Planet(NEPTUNE_POS, "assets/neptune.png", "assets/neptune_glow.png")),
 		])
 
 		#super(Play, self).saveOld()
@@ -125,3 +128,15 @@ class Play(Screen):
 			return sprite.blitTo(self.window)
 		else:
 			return sprite.blitTo(self.window)
+
+	def mousemove(self, point):
+		name = self.pointCollide(point)
+
+		for key in self.sprites:
+			sprite = self.sprites[key]
+			if isinstance(sprite, Planet):
+				if key == name:
+					sprite.setGlow(True)
+				else:
+					sprite.setGlow(False)
+					

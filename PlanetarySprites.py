@@ -3,7 +3,9 @@ import math
 import pygame
 from pygame.sprite import Sprite
 from pygame.font import Font
-from pygame.transform import scale
+#from pygame.transform import scale
+
+from PlanetaryConstants import *
 
 
 '''
@@ -73,16 +75,43 @@ class TiledBackground(DisplayObject):
 
 		super(TiledBackground, self).__init__( (0,0), image)
 
+	def animate(self):
+		pass
+
 
 class Planet(DisplayObject):
 
-	def __init__(self, pos, size, imagePath):
+	def __init__(self, pos, imagePath, glowPath):
 		image = pygame.image.load(imagePath).convert_alpha()
-		image = scale(image, size)
+		self.glow = pygame.image.load(glowPath).convert_alpha()
+		self.glowing = False
+		self.glow_alpha = 0
 		super(Planet, self).__init__(pos, image)
 
-	def setGlow(self):
-		pass
+	def animate(self):
+		if self.glowing and self.glow_alpha < 255:
+			self.glow_alpha += GLOW_SPEED
+		elif not self.glowing and self.glow_alpha > 0:
+			self.glow_alpha -= GLOW_SPEED
+		self.glow_alpha = clamp(self.glow_alpha, 0, 255)
+
+	def blitTo(self, surface):
+		#if self.glow_alpha != 0:
+		# can't use set_alpha() because image already contains an alpha channel
+
+		#glow = self.glow.copy()
+		#glow.fill((255, 255, 255, self.glow_alpha), None, pygame.BLEND_RGBA_MULT)
+		
+		if self.glowing:
+			surface.blit(self.glow, (self.x, self.y))
+		return super(Planet, self).blitTo(surface)
+
+	def setGlow(self, glow):
+		self.glowing = glow
+
+	def hash(self):
+		return super(Planet, self).hash() + (self.glowing, self.glow_alpha)
+
 
 class TextBox(DisplayObject):
 	def __init__(self, pos, imagePath, fontSize, fontPath):
@@ -90,6 +119,9 @@ class TextBox(DisplayObject):
 		self.font = Font(fontPath, fontSize)
 		image = pygame.image.load(imagePath).convert_alpha()
 		super(TextBox, self).__init__(pos, image)
+
+	def animate(self):
+		pass
 
 	def hash(self):
 		return super(TextBox, self).hash() + (self.text,)
