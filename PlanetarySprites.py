@@ -11,7 +11,6 @@ from PlanetaryConstants import *
 '''
 Base graphics class
 '''
-
 class DisplayObject(Sprite):
 	def __init__(self, pos, image=None):
 		Sprite.__init__(self)
@@ -80,6 +79,11 @@ class TiledBackground(DisplayObject):
 
 	def blitPortion(self, surface, rect):
 		return surface.blit(self.image, (rect[0], rect[1]), rect)
+
+	def blitMask(self, surface, rect, mask):
+		image = mask.copy()
+		image.blit(self.image, (0,0), None, pygame.BLEND_RGBA_MULT)
+		return surface.blit(image, (rect[0], rect[1]))
 
 
 

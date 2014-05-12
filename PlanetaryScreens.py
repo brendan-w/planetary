@@ -126,7 +126,7 @@ class Play(Screen):
 	def draw(self, key, sprite):
 		if isinstance(sprite, Planet):
 			# blit the portion of the background
-			self.sprites[BACKGROUND].blitPortion(self.window, sprite.rect)
+			self.sprites[BACKGROUND].blitMask(self.window, sprite.rect, sprite.glow)
 			return sprite.blitTo(self.window)
 		else:
 			return sprite.blitTo(self.window)

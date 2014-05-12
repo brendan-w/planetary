@@ -1,60 +1,134 @@
 {
 	"questions": [
+
 		{
-			"question": "Click on Mercury",
-			"fact": "This is Mercury.",
+			"question": "Click on the first planet.",
+			"fact": "<start>",
 			"answers": ["mercury"],
 			"live": true
 		},
 
 		{
-			"question": "Click on Venus",
-			"fact": "This is Venus.",
+			"question": "Click on the second planet.",
+			"fact": "<start>",
 			"answers": ["venus"],
 			"live": true
+		},
+
+		{
+			"question": "Click on the third planet.",
+			"fact": "<start>",
+			"answers": ["earth"],
+			"live": true
+		},
+
+		{
+			"question": "Click on the 4th planet.",
+			"fact": "<start>",
+			"answers": ["mars"],
+			"live": true
+		},
+
+		{
+			"question": "Click on the 5th planet.",
+			"fact": "<start>",
+			"answers": ["jupiter"],
+			"live": true
+		},
+
+		{
+			"question": "Click on the 6th planet.",
+			"fact": "<start>",
+			"answers": ["saturn"],
+			"live": true
+		},
+
+		{
+			"question": "Click on the 7th planet.",
+			"fact": "<start>",
+			"answers": ["uranus"],
+			"live": true
+		},
+
+		{
+			"question": "Click on 8th planet.",
+			"fact": "<start>",
+			"answers": ["neptune"],
+			"live": true
+		},
+
+
+
+
+
+
+
+
+
+
+
+
+		{
+			"question": "Click on Mercury",
+			"fact": "This is Mercury. It is the closest planet to the sun.",
+			"answers": ["mercury"],
+			"live": false
+		},
+
+		{
+			"question": "Click on Venus",
+			"fact": "This is Venus. It is the 2nd planet from the sun.",
+			"answers": ["venus"],
+			"live": false
 		},
 
 		{
 			"question": "Click on Earth",
-			"fact": "This is Earth.",
-			"answers": ["venus"],
-			"live": true
+			"fact": "This is Earth. We are the 3rd planet from the sun.",
+			"answers": ["earth"],
+			"live": false
 		},
 
 		{
 			"question": "Click on Mars",
-			"fact": "This is Mars.",
-			"answers": ["venus"],
-			"live": true
+			"fact": "This is Mars. It is the 4th planet from the sun.",
+			"answers": ["mars"],
+			"live": false
 		},
 
 		{
 			"question": "Click on Jupiter",
-			"fact": "This is Jupiter.",
-			"answers": ["venus"],
-			"live": true
+			"fact": "This is Jupiter. It is the 5th planet from the sun.",
+			"answers": ["jupiter"],
+			"live": false
 		},
 
 		{
 			"question": "Click on Saturn",
-			"fact": "This is Saturn.",
-			"answers": ["venus"],
-			"live": true
+			"fact": "This is Saturn. It is the 6th planet from the sun.",
+			"answers": ["saturn"],
+			"live": false
 		},
 
 		{
 			"question": "Click on Uranus",
-			"fact": "This is Uranus.",
-			"answers": ["venus"],
-			"live": true
+			"fact": "This is Uranus. It is the 7th planet from the sun.",
+			"answers": ["uranus"],
+			"live": false
 		},
 
 		{
 			"question": "Click on Neptune",
-			"fact": "This is Neptune.",
+			"fact": "This is Neptune. It is the 8th (and furthest) planet from the sun.",
 			"answers": ["neptune"],
-			"live": true
+			"live": false
 		},
+
+
+
+
+
+
 
 
 
@@ -64,20 +138,6 @@
 			"question": "Which planet has life (that we know of)?",
 			"fact": "Earth is the only planet with life on it (that we know of).",
 			"answers": ["earth"],
-			"live": false
-		},
-
-		{
-			"question": "Which planet is closest to the sun?",
-			"fact": "Mercury is the closest planet to the sun.",
-			"answers": ["mercury"],
-			"live": false
-		},
-
-		{
-			"question": "Which planet is farthest from the sun?",
-			"fact": "Uranus is the farthest planet from the sun.",
-			"answers": ["uranus"],
 			"live": false
 		},
 
@@ -94,11 +154,6 @@
 			"answers": ["saturn", "uranus", "neptune"],
 			"live": false
 		},
-
-
-
-
-
 
 		{
 			"question": "Which planet has no moons?",
