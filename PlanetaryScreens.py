@@ -51,6 +51,7 @@ class Screen(object):
 			return changedSprites
 
 	def saveOld(self):
+		global oldScreen
 		oldScreen = self
 		self.oldSprites = self.sprites.copy()
 		for key in self.sprites:
@@ -59,7 +60,6 @@ class Screen(object):
 
 	# show the changes, increment the param dictionaries
 	def frame(self, forceAll=False):
-		global oldScreen
 
 		for key in self.sprites:
 			self.sprites[key].animate()
@@ -108,7 +108,7 @@ class Play(Screen):
 		super(Play, self).__init__()
 
 		self.sprites = OrderedDict([
-			("background", TiledBackground("assets/space.png")),
+			(BACKGROUND, TiledBackground("assets/space.png")),
 			#("question", TextBox(QUESTION_POS, QUESTION_FONT_SIZE, "assets/titillium-regular.ttf")),
 			(MERCURY, Planet(MERCURY_POS, "assets/mercury.png", "assets/mercury_glow.png")),
 			(VENUS  , Planet(VENUS_POS,   "assets/venus.png",   "assets/venus_glow.png")),
@@ -139,4 +139,3 @@ class Play(Screen):
 					sprite.setGlow(True)
 				else:
 					sprite.setGlow(False)
-					

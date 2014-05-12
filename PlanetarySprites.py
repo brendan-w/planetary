@@ -75,6 +75,9 @@ class TiledBackground(DisplayObject):
 
 		super(TiledBackground, self).__init__( (0,0), image)
 
+	def blitTo(self, surface):
+		return super(TiledBackground, self).blitTo(surface)
+
 	def animate(self):
 		pass
 
@@ -96,6 +99,7 @@ class Planet(DisplayObject):
 		self.glow_alpha = clamp(self.glow_alpha, 0, 255)
 
 	def blitTo(self, surface):
+		print "planet"
 		# can't use set_alpha() because image already contains an alpha channel
 		if self.glow_alpha != 0:
 			glowA = self.glow.copy()

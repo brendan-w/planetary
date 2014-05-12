@@ -3,6 +3,8 @@
 Planet layout information
 '''
 
+BACKGROUND = "background"
+
 MERCURY = "mercury"
 VENUS =   "venus"
 EARTH =   "earth"

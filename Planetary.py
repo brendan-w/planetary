@@ -82,6 +82,9 @@ class Planetary:
             elif self.currentScreen == self.playScreen:
                 pass
             
+            if self.forceAll:
+                print "force"
+
             # update the screen
             self.currentScreen.frame(self.forceAll)
             self.forceAll = False
