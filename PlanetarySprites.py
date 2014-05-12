@@ -96,14 +96,11 @@ class Planet(DisplayObject):
 		self.glow_alpha = clamp(self.glow_alpha, 0, 255)
 
 	def blitTo(self, surface):
-		#if self.glow_alpha != 0:
 		# can't use set_alpha() because image already contains an alpha channel
-
-		#glow = self.glow.copy()
-		#glow.fill((255, 255, 255, self.glow_alpha), None, pygame.BLEND_RGBA_MULT)
-		
-		if self.glowing:
-			surface.blit(self.glow, (self.x, self.y))
+		if self.glow_alpha != 0:
+			glowA = self.glow.copy()
+			glowA.fill((255, 255, 255, self.glow_alpha), None, pygame.BLEND_RGBA_MULT)
+			surface.blit(glowA, (self.x, self.y))
 		return super(Planet, self).blitTo(surface)
 
 	def setGlow(self, glow):
