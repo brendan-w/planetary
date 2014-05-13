@@ -5,13 +5,15 @@ Each screen object has an OrderedDict of DisplayObjects that can be modified by
 the game. When frame() is called on a screen, it filters for changes in each
 sprites attributes, and blits the changed graphics. Switching screens forces all
 elements to be redrawn.
+
+all sprites should be a DisplayObject (see PlanetarySprites.py)
 '''
 
 
 import pygame
 from collections import OrderedDict
 
-from PlanetarySprites import Planet, TiledBackground
+from PlanetarySprites import DisplayObject, Planet, TiledBackground
 from PlanetaryConstants import *
 
 # used for determining screen switches
@@ -22,7 +24,7 @@ oldScreen = None
 '''
 Base class for screens
 Handles sprite changes, update regions, and clicks
-Subclasses MUST implement draw(key, sprite)
+Subclasses must implement draw(key, sprite)
 '''
 class Screen(object):
 
@@ -82,6 +84,11 @@ class Screen(object):
 				response = key
 		return response
 
+	#default handler
+	def draw(self, key, sprite):
+		return sprite.blitTo(self.window)
+
+	#default handler
 	def mousemove(self, point):
 		pass
 
@@ -95,8 +102,15 @@ class Home(Screen):
 	def __init__(self):
 		super(Home, self).__init__()
 
+		self.sprites = OrderedDict([
+			(BACKGROUND, TiledBackground("assets/space.png")),
+		])
 
+	def draw(self, key, sprite):
+		return sprite.blitTo(self.window)
 
+	def mousemove(self, point):
+		pass
 
 
 

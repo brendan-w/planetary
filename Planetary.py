@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+'''
+Main pygame file. Handles game logic and high-level UI management
+'''
+
 # python
 import json
 import random
@@ -22,18 +26,21 @@ class Planetary:
 
         # running vars
         self.running = True # controls the exit of the game loop
-        self.data = None  # check out init_data.json for the structure
         self.clock = pygame.time.Clock() # controls the frame rate
         self.forceAll = False # force an entire repaint of the screen on the next frame
-        self.question = ""
-        self.answer = ""
-
+        self.data = None  # check out init_data.json for the structure
+        self.liveQuestions = None
+        self.waitQuestions = None
 
     # Called to load the state of the game from the Journal.
     def read_file(self, file_path):
         f = open(file_path, 'r')
         self.data = json.load(f)
         f.close()
+
+        self.liveQuestions = self.data["live"]
+        self.waitQuestions = self.data["wait"]
+
 
     # Called to save the state of the game to the Journal.
     def write_file(self, file_path):

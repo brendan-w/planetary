@@ -1,10 +1,12 @@
+'''
+Sprite object definitions.
+DisplayObject is the base class for displaying clickable images.
+'''
 
 import math
 import pygame
 from pygame.sprite import Sprite
 from pygame.font import Font
-#from pygame.transform import scale
-
 from PlanetaryConstants import *
 
 
@@ -29,6 +31,7 @@ class DisplayObject(Sprite):
 
 		return self.rect
 
+	# collides a global point coordinate with the image mask
 	def pointCollide(self, point):
 		if self.rect.collidepoint(point) and self.mask != None:
 			point = (point[0] - self.x, point[1] - self.y)
@@ -36,6 +39,7 @@ class DisplayObject(Sprite):
 		else:
 			return False
 	
+	# called every frame
 	def animate(self):
 		pass
 
@@ -47,6 +51,7 @@ class DisplayObject(Sprite):
 		self.x += p.x
 		self.y += p.y
 
+	# subclasses should override and append additional values
 	def hash(self):
 		return (self.x, self.y, self.active)
 
@@ -55,8 +60,9 @@ class DisplayObject(Sprite):
 Subclasses of DisplayObject
 '''
 
-
+# creates a background image by tiling the given image
 class TiledBackground(DisplayObject):
+
 	def __init__(self, tilePath):
 		tile = pygame.image.load(tilePath).convert_alpha()
 		tileWidth = tile.get_width()
@@ -77,9 +83,11 @@ class TiledBackground(DisplayObject):
 
 		super(TiledBackground, self).__init__( (0,0), image)
 
+	# blits rectangular portion
 	def blitPortion(self, surface, rect):
 		return surface.blit(self.image, (rect[0], rect[1]), rect)
 
+	# blits rectangular portion and applies the given mask surface
 	def blitMask(self, surface, rect, mask):
 		image = mask.copy()
 		image.blit(self.image, (0,0), None, pygame.BLEND_RGBA_MULT)
@@ -87,6 +95,7 @@ class TiledBackground(DisplayObject):
 
 
 
+# creates a planet with a controlled glow surrounding it
 class Planet(DisplayObject):
 
 	def __init__(self, pos, imagePath, glowPath):
@@ -105,7 +114,7 @@ class Planet(DisplayObject):
 
 	def blitTo(self, surface):
 		print "planet"
-		# can't use set_alpha() because image already contains an alpha channel
+		# can't use set_alpha() because image already contains a per-pixel alpha channel
 		if self.glow_alpha != 0:
 			glowA = self.glow.copy()
 			glowA.fill((255, 255, 255, self.glow_alpha), None, pygame.BLEND_RGBA_MULT)
@@ -119,6 +128,7 @@ class Planet(DisplayObject):
 		return super(Planet, self).hash() + (self.glowing, self.glow_alpha)
 
 
+# renders text
 class TextBox(DisplayObject):
 	def __init__(self, pos, imagePath, fontSize, fontPath):
 		self.text = ""
