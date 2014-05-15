@@ -98,8 +98,9 @@ class TiledBackground(DisplayObject):
 # creates a planet with a controlled glow surrounding it
 class Planet(DisplayObject):
 
-	def __init__(self, pos, imagePath, glowPath):
+	def __init__(self, pos, imagePath, glowPath, maskPath):
 		image = pygame.image.load(imagePath).convert_alpha()
+		self.glow_mask = pygame.image.load(maskPath).convert_alpha()		
 		self.glow = pygame.image.load(glowPath).convert_alpha()
 		self.glowing = False
 		self.glow_alpha = 0

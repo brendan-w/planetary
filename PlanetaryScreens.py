@@ -124,14 +124,14 @@ class Play(Screen):
 		self.sprites = OrderedDict([
 			(BACKGROUND, TiledBackground("assets/space.png")),
 			#("question", TextBox(QUESTION_POS, QUESTION_FONT_SIZE, "assets/titillium-regular.ttf")),
-			(MERCURY, Planet(MERCURY_POS, "assets/mercury.png", "assets/mercury_glow.png")),
-			(VENUS  , Planet(VENUS_POS,   "assets/venus.png",   "assets/venus_glow.png")),
-			(EARTH  , Planet(EARTH_POS,   "assets/earth.png",   "assets/earth_glow.png")),
-			(MARS   , Planet(MARS_POS,    "assets/mars.png",    "assets/mars_glow.png")),
-			(JUPITER, Planet(JUPITER_POS, "assets/jupiter.png", "assets/jupiter_glow.png")),
-			(SATURN , Planet(SATURN_POS,  "assets/saturn.png",  "assets/saturn_glow.png")),
-			(URANUS , Planet(URANUS_POS,  "assets/uranus.png",  "assets/uranus_glow.png")),
-			(NEPTUNE, Planet(NEPTUNE_POS, "assets/neptune.png", "assets/neptune_glow.png")),
+			(MERCURY, Planet(MERCURY_POS, "assets/mercury.png", "assets/mercury_glow.png", "assets/mercury_mask.png")),
+			(VENUS  , Planet(VENUS_POS,   "assets/venus.png",   "assets/venus_glow.png",   "assets/venus_mask.png")),
+			(EARTH  , Planet(EARTH_POS,   "assets/earth.png",   "assets/earth_glow.png",   "assets/earth_mask.png")),
+			(MARS   , Planet(MARS_POS,    "assets/mars.png",    "assets/mars_glow.png",    "assets/mars_mask.png")),
+			(JUPITER, Planet(JUPITER_POS, "assets/jupiter.png", "assets/jupiter_glow.png", "assets/jupiter_mask.png")),
+			(SATURN , Planet(SATURN_POS,  "assets/saturn.png",  "assets/saturn_glow.png",  "assets/saturn_mask.png")),
+			(URANUS , Planet(URANUS_POS,  "assets/uranus.png",  "assets/uranus_glow.png",  "assets/uranus_mask.png")),
+			(NEPTUNE, Planet(NEPTUNE_POS, "assets/neptune.png", "assets/neptune_glow.png", "assets/neptune_mask.png")),
 		])
 
 		#super(Play, self).saveOld()
@@ -140,7 +140,7 @@ class Play(Screen):
 	def draw(self, key, sprite):
 		if isinstance(sprite, Planet):
 			# blit the portion of the background
-			self.sprites[BACKGROUND].blitMask(self.window, sprite.rect, sprite.glow)
+			self.sprites[BACKGROUND].blitMask(self.window, sprite.rect, sprite.glow_mask)
 			return sprite.blitTo(self.window)
 		else:
 			return sprite.blitTo(self.window)
