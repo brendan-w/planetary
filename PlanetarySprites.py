@@ -33,8 +33,10 @@ class DisplayObject(Sprite):
 
 	# collides a global point coordinate with the image mask
 	def pointCollide(self, point):
+		print point
 		if self.rect.collidepoint(point) and self.mask != None:
 			point = (point[0] - self.x, point[1] - self.y)
+			print "adjusted: " + str(point)
 			return self.mask.get_at(point)
 		else:
 			return False

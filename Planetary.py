@@ -76,13 +76,13 @@ class Planetary:
 
                 elif event.type == MOUSEBUTTONUP:
                     pos = pygame.mouse.get_pos()
-                    name = self.currentScreen.pointCollide(pos)
-                    print name
-
+                    #name = self.currentScreen.pointCollide(pos)
+                    #print name
+                
                 elif event.type == MOUSEMOTION:
                     pos = pygame.mouse.get_pos()
                     self.currentScreen.mousemove(pos)
-
+                
             # switch for current screen
             if self.currentScreen == self.homeScreen:
                 pass

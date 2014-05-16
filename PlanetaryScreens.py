@@ -146,12 +146,10 @@ class Play(Screen):
 			return sprite.blitTo(self.window)
 
 	def mousemove(self, point):
-		name = self.pointCollide(point)
-
 		for key in self.sprites:
 			sprite = self.sprites[key]
 			if isinstance(sprite, Planet):
-				if key == name:
+				if sprite.pointCollide(point):
 					sprite.setGlow(True)
 				else:
 					sprite.setGlow(False)
