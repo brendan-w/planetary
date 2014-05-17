@@ -22,6 +22,7 @@ class DisplayObject(Sprite):
 		self.image = image
 		self.mask = pygame.mask.from_surface(self.image)
 		self.rect = self.image.get_rect()
+		self.rect = pygame.Rect(self.x, self.y, self.rect[2], self.rect[3])
 
 	def blitTo(self, surface):
 		if self.active:
@@ -33,17 +34,15 @@ class DisplayObject(Sprite):
 
 	# collides a global point coordinate with the image mask
 	def pointCollide(self, point):
-		print point
 		if self.rect.collidepoint(point) and self.mask != None:
 			point = (point[0] - self.x, point[1] - self.y)
-			print "adjusted: " + str(point)
 			return self.mask.get_at(point)
 		else:
 			return False
 	
 	# called every frame
 	def animate(self):
-		pass
+		self.rect = pygame.Rect(self.x, self.y, self.rect[2], self.rect[3])
 
 	def setPos(self, p):
 		self.x = p.x
