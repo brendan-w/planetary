@@ -12,7 +12,7 @@ EMPTY_RECT = Rect(0,0,0,0)
 
 
 # Game Logic
-TOTAL_STATES = 6
+TOTAL_STATES = 9
 
 RESULT_WAIT = 100
 CORRECT_WAIT = 100
@@ -22,6 +22,8 @@ CORRECT_WAIT = 100
 BACKGROUND = "background"
 QUESTION = "question"
 FACT = "fact"
+NEXT_BUTTON = "next"
+
 MERCURY = "mercury"
 VENUS =   "venus"
 EARTH =   "earth"
@@ -67,6 +69,7 @@ FACT_FONT_SIZE = 40
 
 WIN_TEXT = "Correct!"
 LOSE_TEXT = "Incorrect"
+NEXT_FACT_TEXT = "Next planet fact:"
 
 
 # Animation

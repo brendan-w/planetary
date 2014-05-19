@@ -184,6 +184,11 @@ class Play(Screen):
 		sprite.active = True
 		sprite.setText(text)
 
+	def setAllColor(self, color):
+		for key in self.sprites:
+			if key in PLANETS:
+				self.sprites[key].setGlowColor(color)
+
 	def startPulse(self, planet, color):
 		sprite = self.sprites[planet]
 		sprite.setGlowColor(color)
@@ -192,7 +197,6 @@ class Play(Screen):
 	def stopPulse(self, planet):
 		sprite = self.sprites[planet]
 		sprite.stopPulsing()
-		sprite.setGlowColor(GLOW_WHITE)
 		sprite.setGlowSpeed(GLOW_SPEED_NORMAL)
 
 	def startRandomPulse(self, color):

@@ -39,7 +39,7 @@ class Planetary:
         self.question = None # the question the user is currently answering
         self.lastQuestion = None # prevents the same question from being asked twice in a row
         self.answer = None # tuple (win/loose, planet clicked)
-        self.waitTimes = [0, 0, 37, 0, 54, 0] # frame timers (one for each game state) (0 = no timer)
+        self.waitTimes = [0, 0, 37, 0, 54, 0, 30] # frame timers (one for each game state) (0 = no timer)
         self.gameWait = 0 # frame counter for timers (counts UP from zero)
         self.gameState = 0 # what stage in the round
         '''
@@ -112,12 +112,13 @@ class Planetary:
                 '''
                 switch for game state
                 '''
-                if self.gameState == 0:
+                if self.gameState == 0: #============================================
                     # choose a new question
                     self.getQuestion()
                     # display the question
                     self.screen.setQuestion(self.question["question"])
                     self.screen.hideFact()
+                    self.screen.setAllColor(GLOW_WHITE)
                     self.screen.mouseOverEnabled = True
                     self.advance()
 
@@ -160,7 +161,30 @@ class Planetary:
                 
                 elif self.gameState == 5: #============================================
                     self.screen.stopAllPulse()
-                    self.screen.hideQuestion()
+                    self.screen.setQuestion(NEXT_FACT_TEXT)
+                    self.advance()
+
+                elif self.gameState == 6: #============================================
+                    # rest period (strictly pacing, that's all)
+                    self.frameTimer()
+
+                elif self.gameState == 7: #============================================
+                    # choose the next fact
+                    fact = self.getFact(self.answer[1])
+                    # display the fact and its planets
+                    self.screen.setFact(fact["fact"])
+                    for planet in fact["answers"]:
+                        self.screen.startPulse(planet, GLOW_WHITE)
+
+                    self.advance()
+
+                elif self.gameState == 8: #============================================
+                    # wait for confirmation from the user before user
+                    if self.clicked == NEXT_BUTTON:
+                        self.screen.stopAllPulse()
+                        self.screen.hideFact()
+                        self.advance()
+
 
 
 
@@ -209,11 +233,9 @@ class Planetary:
         self.checkData()
 
         if len(self.waitQuestions) > 0:
-
             newQuestion = None
-
             for question in self.waitQuestions:
-                if testAnswer(prevAnswer):
+                if self.testAnswer(prevAnswer, question):
                     newQuestion = question
                     break;
 
