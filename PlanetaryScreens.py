@@ -13,7 +13,7 @@ all sprites should be a DisplayObject (see PlanetarySprites.py)
 import pygame
 from collections import OrderedDict
 
-from PlanetarySprites import DisplayObject, Planet, TiledBackground
+from PlanetarySprites import *
 from PlanetaryConstants import *
 
 # used for determining screen switches
@@ -123,7 +123,7 @@ class Play(Screen):
 
 		self.sprites = OrderedDict([
 			(BACKGROUND, TiledBackground("assets/space.png")),
-			#("question", TextBox(QUESTION_POS, QUESTION_FONT_SIZE, "assets/titillium-regular.ttf")),
+			("question", TextBox(QUESTION_POS, "assets/titillium-regular.ttf", QUESTION_FONT_SIZE)),
 			(MERCURY, Planet(MERCURY_POS, "assets/mercury.png", "assets/mercury_glow.png", "assets/mercury_mask.png")),
 			(VENUS  , Planet(VENUS_POS,   "assets/venus.png",   "assets/venus_glow.png",   "assets/venus_mask.png")),
 			(EARTH  , Planet(EARTH_POS,   "assets/earth.png",   "assets/earth_glow.png",   "assets/earth_mask.png")),

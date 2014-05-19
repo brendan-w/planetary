@@ -19,10 +19,13 @@ class DisplayObject(Sprite):
 		self.active = True
 		self.x = pos[0]
 		self.y = pos[1]
-		self.image = image
-		self.mask = pygame.mask.from_surface(self.image)
-		self.rect = self.image.get_rect()
-		self.rect = pygame.Rect(self.x, self.y, self.rect[2], self.rect[3])
+		if image != None:
+			self.image = image
+			self.mask = pygame.mask.from_surface(self.image)
+			self.rect = self.image.get_rect()
+			self.rect = pygame.Rect(self.x, self.y, self.rect[2], self.rect[3])
+		else:
+			self.rect = pygame.Rect(self.x, self.y, 0, 0)
 
 	def blitTo(self, surface):
 		if self.active:
@@ -132,15 +135,20 @@ class Planet(DisplayObject):
 
 # renders text
 class TextBox(DisplayObject):
-	def __init__(self, pos, imagePath, fontSize, fontPath):
-		self.text = ""
+	def __init__(self, pos, fontPath, fontSize):
+		self.text = "Default Text"
+		self.text_color = pygame.Color(255,255,255)
 		self.font = Font(fontPath, fontSize)
-		image = pygame.image.load(imagePath).convert_alpha()
-		super(TextBox, self).__init__(pos, image)
+		super(TextBox, self).__init__(pos)
 
 	def animate(self):
 		pass
 
+	def blitTo(self, surface):
+		print "textbox"
+		text = self.font.render(self.text, True, self.text_color)
+		return surface.blit(text, (self.x, self.y))
+
 	def hash(self):
-		return super(TextBox, self).hash() + (self.text,)
+		return super(TextBox, self).hash() + (self.text, self.text_color)
 		
