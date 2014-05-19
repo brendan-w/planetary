@@ -20,6 +20,12 @@ from PlanetaryConstants import *
 # used for determining screen switches
 oldScreen = None
 
+# a place to store sprites that are common across screens
+commonSprites = {}
+
+def load():
+	global commonSprites
+	commonSprites[BACKGROUND] = TiledBackground("assets/space.png")
 
 
 '''
@@ -118,10 +124,11 @@ Class that draws the play screen
 '''
 class Play(Screen):
 	def __init__(self):
+		global commonSprites
 		super(Play, self).__init__()
 
 		self.sprites = OrderedDict([
-			(BACKGROUND, TiledBackground("assets/space.png")),
+			(BACKGROUND, commonSprites[BACKGROUND]),
 			(QUESTION,   TextBox(QUESTION_POS, QUESTION_MAX_CHARS, FONT, QUESTION_FONT_SIZE)),
 			(FACT,     TextBox(FACT_POS, FACT_MAX_CHARS, FONT, FACT_FONT_SIZE)),
 			(MERCURY, Planet(MERCURY_POS, "assets/mercury.png", "assets/mercury_glow.png", "assets/mercury_mask.png")),

@@ -17,6 +17,7 @@ from pygame.locals import QUIT, MOUSEBUTTONUP, MOUSEMOTION, VIDEORESIZE, ACTIVEE
 
 # app
 from PlanetaryConstants import *
+import PlanetaryScreens
 from PlanetaryScreens import Home, Play
 
 
@@ -71,7 +72,8 @@ class Planetary:
     # The main game loop.
     def run(self):
 
-        # game screens
+        # load and build graphics
+        PlanetaryScreens.load()
         self.homeScreen = Home()
         self.playScreen = Play()
 
