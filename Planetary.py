@@ -32,6 +32,9 @@ class Planetary:
         self.liveQuestions = None
         self.waitQuestions = None
 
+        self.currentQuestion = None
+        self.lastQuestion = None
+
     # Called to load the state of the game from the Journal.
     def read_file(self, file_path):
         f = open(file_path, 'r')
@@ -74,9 +77,9 @@ class Planetary:
                 elif event.type == VIDEORESIZE or event.type == ACTIVEEVENT:
                     self.forceAll = True
 
-                elif event.type == MOUSEBUTTONUP:
+                elif event.type == MOUSEBUTTONUP and (event.button == 1 or event.button == 3):
                     pos = pygame.mouse.get_pos()
-                    name = self.currentScreen.pointCollide(pos)
+                    name = self.currentScreen.click(pos)
                     print name
                 
                 elif event.type == MOUSEMOTION:
@@ -103,13 +106,52 @@ class Planetary:
         pygame.quit()
 
 
-    # retrieves a question in play from the list
-    def getQuestion(self):
-        pass
+    # chooses a new question for the user, and loads it into self.currentQuestion
+    def newQuestion(self, prevAnswer=None):
+        self.checkData()
+        
+        self.lastQuestion = self.currentQuestion
 
-    # retrieves a fact that was not in play from the list
-    def getFact(self):
-        pass
+        while self.currentQuestion == self.lastQuestion:
+            self.currentQuestion = random.choice(self.liveQuestions)
+
+
+    # search for a new fact (with question) linearly with an fact about the planet clicked
+    # returns the new question on success, false if no questions left  <--  you beat the game
+    def getFact(self, prevAnswer=None):
+        self.checkData()
+
+        if len(self.waitQuestions) > 0:
+
+            newQuestion = None
+
+            for question in self.waitQuestions:
+                if testAnswer(prevAnswer):
+                    newQuestion = question
+                    break;
+
+            # none left with this answer, choose at random
+            if newQuestion == None:
+                newQuestion = random.choice(self.waitQuestions)
+
+            self.liveQuestions.append(newQuestion)
+            self.waitQuestions.remove(newQuestion)
+            return newQuestion
+        else:
+            return False
+
+
+    def testAnswer(self, answer, question):
+        if answer in question.answers:
+            return True
+        else:
+            return False
+
+
+    # in case sugar never called readFile, load the default game state
+    def checkData(self):
+        if self.data == None:
+            self.readFile("init_data.json")
 
 
 # This function is called when the game is run directly from the command line:
@@ -118,7 +160,7 @@ def main():
     pygame.init()
     pygame.display.set_mode((1200, 900), pygame.RESIZABLE)
     game = Planetary()
-    game.read_file("init_data.json")
+    #game.read_file("init_data.json")
     game.run()
 
 if __name__ == '__main__':

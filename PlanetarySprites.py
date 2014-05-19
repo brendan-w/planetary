@@ -14,30 +14,32 @@ from PlanetaryConstants import *
 Base graphics class
 '''
 class DisplayObject(Sprite):
-	def __init__(self, pos, image=None):
+	def __init__(self, pos, clickable, image=None):
 		Sprite.__init__(self)
 		self.active = True
 		self.x = pos[0]
 		self.y = pos[1]
+		self.mask = None
 		if image != None:
 			self.image = image
-			self.mask = pygame.mask.from_surface(self.image)
 			self.rect = self.image.get_rect()
 			self.rect = pygame.Rect(self.x, self.y, self.rect[2], self.rect[3])
+
+			if clickable:
+				self.mask = pygame.mask.from_surface(self.image)
 		else:
 			self.rect = pygame.Rect(self.x, self.y, 0, 0)
 
 	def blitTo(self, surface):
 		if self.active:
 			self.rect = surface.blit(self.image, (self.x, self.y))
+			return self.rect
 		else:
-			self.rect = EMPTY_RECT
-
-		return self.rect
+			return EMPTY_RECT
 
 	# collides a global point coordinate with the image mask
 	def pointCollide(self, point):
-		if self.rect.collidepoint(point) and self.mask != None:
+		if self.mask != None and self.rect.collidepoint(point):
 			point = (point[0] - self.x, point[1] - self.y)
 			return self.mask.get_at(point)
 		else:
@@ -85,7 +87,7 @@ class TiledBackground(DisplayObject):
 			for y in range(yTiles):
 				image.blit(tile, (x * tileWidth, y * tileHeight) )		
 
-		super(TiledBackground, self).__init__( (0,0), image)
+		super(TiledBackground, self).__init__( (0,0), False, image)
 
 	# blits rectangular portion
 	def blitPortion(self, surface, rect):
@@ -108,7 +110,8 @@ class Planet(DisplayObject):
 		self.glow = pygame.image.load(glowPath).convert_alpha()
 		self.glowing = False
 		self.glow_alpha = 0
-		super(Planet, self).__init__(pos, image)
+		self.glow_color = GLOW_WHITE
+		super(Planet, self).__init__(pos, True, image)
 
 	def animate(self):
 		if self.glowing and self.glow_alpha < 255:
@@ -118,45 +121,46 @@ class Planet(DisplayObject):
 		self.glow_alpha = clamp(self.glow_alpha, 0, 255)
 
 	def blitTo(self, surface):
-		print "planet"
 		# can't use set_alpha() because image already contains a per-pixel alpha channel
 		if self.glow_alpha != 0:
 			glowA = self.glow.copy()
-			glowA.fill((255, 255, 255, self.glow_alpha), None, pygame.BLEND_RGBA_MULT)
+			color = self.glow_color + (self.glow_alpha,)
+			glowA.fill(color, None, pygame.BLEND_RGBA_MULT)
 			surface.blit(glowA, (self.x, self.y))
 		return super(Planet, self).blitTo(surface)
 
 	def setGlow(self, glow):
 		self.glowing = glow
 
+	def setGlowColor(self, color):
+		self.glow_color = color
+
 	def hash(self):
-		return super(Planet, self).hash() + (self.glowing, self.glow_alpha)
+		return super(Planet, self).hash() + (self.glowing, self.glow_color, self.glow_alpha)
 
 
 # renders text
 class TextBox(DisplayObject):
-	def __init__(self, pos, maxChars, fontPath, fontSize, fontColor):
+	def __init__(self, pos, maxChars, fontPath, fontSize):
 		self.lines = []
 		self.text = ""
-		self.text_color = fontColor
+		self.text_color = FONT_COLOR
 		self.max_chars = maxChars
 		self.font = Font(fontPath, fontSize)
 
-		self.setText("Question gets displayed here.")
-		super(TextBox, self).__init__(pos)
+		self.setText("TextBox")
+		super(TextBox, self).__init__(pos, False)
 
 	def animate(self):
 		pass
 
 	def blitTo(self, surface):
-		print "textbox"
-
 		# loop through the lines and render
 		rects = []
 		for index, line in enumerate(self.lines):
-			text_image = self.font.render(line, True, self.text_color)
-			position = (self.x, self.y + (index * text_image.get_height()))
-			self.rect = surface.blit(text_image, position)
+			self.image = self.font.render(line, True, self.text_color)
+			position = (self.x, self.y + (index * self.image.get_height()))
+			self.rect = surface.blit(self.image, position)
 
 		if len(rects) > 0:
 			self.rect = EMPTY_RECT.unionall(rects)

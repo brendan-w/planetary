@@ -77,7 +77,7 @@ class Screen(object):
 		self.saveOld()
 
 	# returns the key of the topmost sprite that collides with the point
-	def pointCollide(self, point):
+	def click(self, point):
 		response = ""
 		for key in self.sprites:
 			if self.sprites[key].pointCollide(point):
@@ -123,14 +123,15 @@ class Play(Screen):
 
 		self.sprites = OrderedDict([
 			(BACKGROUND, TiledBackground("assets/space.png")),
-			("question", TextBox(QUESTION_POS, QUESTION_MAX_CHARS, "assets/titillium-regular.ttf", QUESTION_FONT_SIZE, QUESTION_COLOR)),
+			(QUESTION,   TextBox(QUESTION_POS, QUESTION_MAX_CHARS, FONT, QUESTION_FONT_SIZE)),
+			(FACT,     TextBox(FACT_POS, FACT_MAX_CHARS, FONT, FACT_FONT_SIZE)),
 			(MERCURY, Planet(MERCURY_POS, "assets/mercury.png", "assets/mercury_glow.png", "assets/mercury_mask.png")),
-			(VENUS  , Planet(VENUS_POS,   "assets/venus.png",   "assets/venus_glow.png",   "assets/venus_mask.png")),
-			(EARTH  , Planet(EARTH_POS,   "assets/earth.png",   "assets/earth_glow.png",   "assets/earth_mask.png")),
-			(MARS   , Planet(MARS_POS,    "assets/mars.png",    "assets/mars_glow.png",    "assets/mars_mask.png")),
+			(VENUS,   Planet(VENUS_POS,   "assets/venus.png",   "assets/venus_glow.png",   "assets/venus_mask.png")),
+			(EARTH,   Planet(EARTH_POS,   "assets/earth.png",   "assets/earth_glow.png",   "assets/earth_mask.png")),
+			(MARS,    Planet(MARS_POS,    "assets/mars.png",    "assets/mars_glow.png",    "assets/mars_mask.png")),
 			(JUPITER, Planet(JUPITER_POS, "assets/jupiter.png", "assets/jupiter_glow.png", "assets/jupiter_mask.png")),
-			(SATURN , Planet(SATURN_POS,  "assets/saturn.png",  "assets/saturn_glow.png",  "assets/saturn_mask.png")),
-			(URANUS , Planet(URANUS_POS,  "assets/uranus.png",  "assets/uranus_glow.png",  "assets/uranus_mask.png")),
+			(SATURN,  Planet(SATURN_POS,  "assets/saturn.png",  "assets/saturn_glow.png",  "assets/saturn_mask.png")),
+			(URANUS,  Planet(URANUS_POS,  "assets/uranus.png",  "assets/uranus_glow.png",  "assets/uranus_mask.png")),
 			(NEPTUNE, Planet(NEPTUNE_POS, "assets/neptune.png", "assets/neptune_glow.png", "assets/neptune_mask.png")),
 		])
 
