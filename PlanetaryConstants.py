@@ -1,6 +1,14 @@
+
+
+from pygame import Rect
+from pygame import Color
+
+
 '''
 Constants
 '''
+
+EMPTY_RECT = Rect(0,0,0,0)
 
 BACKGROUND = "background"
 MERCURY = "mercury"
@@ -24,9 +32,10 @@ NEPTUNE_POS = (1020,0 + V)
 
 GLOW_SPEED = 50 #0-255, per frame
 
-QUESTION_POS = (0,0)
+QUESTION_POS = (15,0)
 QUESTION_MAX_CHARS = 40
-QUESTION_FONT_SIZE = 50
+QUESTION_FONT_SIZE = 40
+QUESTION_COLOR = Color(255,255,255,255)
 
 
 '''

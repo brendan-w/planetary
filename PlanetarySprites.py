@@ -31,7 +31,7 @@ class DisplayObject(Sprite):
 		if self.active:
 			self.rect = surface.blit(self.image, (self.x, self.y))
 		else:
-			self.rect = pygame.Rect(0,0,0,0)
+			self.rect = EMPTY_RECT
 
 		return self.rect
 
@@ -135,10 +135,14 @@ class Planet(DisplayObject):
 
 # renders text
 class TextBox(DisplayObject):
-	def __init__(self, pos, fontPath, fontSize):
-		self.text = "Default Text"
-		self.text_color = pygame.Color(255,255,255)
+	def __init__(self, pos, maxChars, fontPath, fontSize, fontColor):
+		self.lines = []
+		self.text = ""
+		self.text_color = fontColor
+		self.max_chars = maxChars
 		self.font = Font(fontPath, fontSize)
+
+		self.setText("Question gets displayed here.")
 		super(TextBox, self).__init__(pos)
 
 	def animate(self):
@@ -146,9 +150,38 @@ class TextBox(DisplayObject):
 
 	def blitTo(self, surface):
 		print "textbox"
-		text = self.font.render(self.text, True, self.text_color)
-		return surface.blit(text, (self.x, self.y))
+
+		# loop through the lines and render
+		rects = []
+		for index, line in enumerate(self.lines):
+			text_image = self.font.render(line, True, self.text_color)
+			position = (self.x, self.y + (index * text_image.get_height()))
+			self.rect = surface.blit(text_image, position)
+
+		if len(rects) > 0:
+			self.rect = EMPTY_RECT.unionall(rects)
+		else:
+			self.rect = EMPTY_RECT
+		return self.rect
+
+	def setText(self, text):
+		text = text.strip()
+		self.text = text
+
+		# split the text into multiple lines across spaces
+		self.lines = []
+		while len(text) > self.max_chars:
+			line = text[0:self.max_chars]
+			space = line.rfind(" ")
+			if space != -1:
+				self.lines.append(line[0:space])
+				text = text[space:].strip()
+			else:
+				self.lines.append(line)
+				text = text[max_chars:].strip()
+
+		self.lines.append(text) #dont forget about the last line!
 
 	def hash(self):
-		return super(TextBox, self).hash() + (self.text, self.text_color)
+		return super(TextBox, self).hash() + (self.text, self.text_color, self.max_chars)
 		
