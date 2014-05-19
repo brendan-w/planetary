@@ -66,7 +66,7 @@ FACT_FONT_SIZE = 40
 
 
 # Animation
-GLOW_SPEED = 50 #0-255, per frame
+GLOW_SPEED_NORMAL = 50 #0-255, per frame
 
 
 

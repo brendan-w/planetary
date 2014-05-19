@@ -111,13 +111,23 @@ class Planet(DisplayObject):
 		self.glowing = False
 		self.glow_alpha = 0
 		self.glow_color = GLOW_WHITE
+		self.glow_speed = GLOW_SPEED_NORMAL
+		self.pulsing = False
 		super(Planet, self).__init__(pos, True, image)
 
 	def animate(self):
+		# pulser
+		if self.pulsing:
+			if self.glow_alpha <= 0:
+				self.setGlow(True)
+			elif self.glow_alpha >= 255:
+				self.setGlow(False)
+
+		# opacity fader
 		if self.glowing and self.glow_alpha < 255:
-			self.glow_alpha += GLOW_SPEED
+			self.glow_alpha += self.glow_speed
 		elif not self.glowing and self.glow_alpha > 0:
-			self.glow_alpha -= GLOW_SPEED
+			self.glow_alpha -= self.glow_speed
 		self.glow_alpha = clamp(self.glow_alpha, 0, 255)
 
 	def blitTo(self, surface):
@@ -134,6 +144,16 @@ class Planet(DisplayObject):
 
 	def setGlowColor(self, color):
 		self.glow_color = color
+
+	def setGlowSpeed(self, speed):
+		self.glow_speed = speed
+
+	def startPulsing(self):
+		self.pulsing = True
+
+	def stopPulsing(self):
+		self.pulsing = False
+		self.setGlow(False)
 
 	def hash(self):
 		return super(Planet, self).hash() + (self.glowing, self.glow_color, self.glow_alpha)

@@ -133,7 +133,11 @@ class Play(Screen):
 			(NEPTUNE, Planet(NEPTUNE_POS, "assets/neptune.png", "assets/neptune_glow.png", "assets/neptune_mask.png")),
 		])
 
+		# custom screen variables
+		self.mouseOverEnabled = True
+
 		#super(Play, self).saveOld()
+
 
 	# object drawing routines. Returns Rect of area modified
 	def draw(self, key, sprite):
@@ -151,13 +155,14 @@ class Play(Screen):
 			return sprite.blitTo(self.window)
 
 	def mousemove(self, point):
-		for key in self.sprites:
-			sprite = self.sprites[key]
-			if isinstance(sprite, Planet):
-				if sprite.pointCollide(point):
-					sprite.setGlow(True)
-				else:
-					sprite.setGlow(False)
+		if self.mouseOverEnabled:
+			for key in self.sprites:
+				sprite = self.sprites[key]
+				if isinstance(sprite, Planet):
+					if sprite.pointCollide(point):
+						sprite.setGlow(True)
+					else:
+						sprite.setGlow(False)
 
 
 	# custom, screen-specific functions
@@ -177,3 +182,16 @@ class Play(Screen):
 		sprite = self.sprites[FACT]
 		sprite.active = True
 		sprite.setText(fact)
+
+	def startPulse(self, answer):
+		sprite = self.sprites[answer[1]]
+		if answer[0]:
+			sprite.setGlowColor(GLOW_GREEN)
+		else:
+			sprite.setGlowColor(GLOW_RED)
+		sprite.startPulsing()
+
+	def stopPulse(self, answer):
+		sprite = self.sprites[answer[1]]
+		sprite.setGlowColor(GLOW_WHITE)
+		sprite.stopPulsing()

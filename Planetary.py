@@ -39,7 +39,7 @@ class Planetary:
         self.currentQuestion = None # the question the user is currently answering
         self.lastQuestion = None # prevents the same question from being asked twice in a row
         self.answer = None # tuple (win/loose, planet clicked)
-        self.waitTimes = [0, 0, 30, 30, 0, 0] # frame timers (one for each game state) (0 = no timer)
+        self.waitTimes = [0, 0, 50, 50, 0, 0] # frame timers (one for each game state) (0 = no timer)
         self.gameWait = 0 # frame counter for timers (counts UP from zero)
         self.gameState = 0 # what stage in the round
         '''
@@ -117,23 +117,26 @@ class Planetary:
                     # choose a new question
                     self.getQuestion()
                     # display the question
-                    self.currentScreen.setQuestion(self.currentQuestion["question"])
-                    self.currentScreen.hideFact()
+                    self.playScreen.setQuestion(self.currentQuestion["question"])
+                    self.playScreen.hideFact()
+                    self.playScreen.mouseOverEnabled = True
                     self.advance()
 
                 elif self.gameState == 1:
                     if self.clicked in PLANETS:
                         win = self.testAnswer(self.clicked)
                         self.answer = (win, self.clicked) # store the users answer so it can be displayed later
-                        print self.answer
+                        # display the result
+                        self.playScreen.mouseOverEnabled = False
+                        self.playScreen.startPulse(self.answer)
                         self.advance()
 
                 elif self.gameState == 2:
-                    
+
                     self.frameTimer()
                 
                 elif self.gameState == 3:
-                    pass
+                    self.playScreen.stopPulse(self.answer)
                 
                 elif self.gameState == 4:
                     pass
