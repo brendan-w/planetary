@@ -2,19 +2,19 @@
 	"live": [
 		{
 			"fact": "<start>",
-			"question": "Click on the first planet.",
+			"question": "Click on the 1st planet.",
 			"answers": ["mercury"]
 		},
 
 		{
 			"fact": "<start>",
-			"question": "Click on the second planet.",
+			"question": "Click on the 2nd planet.",
 			"answers": ["venus"]
 		},
 
 		{
 			"fact": "<start>",
-			"question": "Click on the third planet.",
+			"question": "Click on the 3rd planet.",
 			"answers": ["earth"]
 		},
 

@@ -11,6 +11,12 @@ Constants
 EMPTY_RECT = Rect(0,0,0,0)
 
 
+# Game Logic
+TOTAL_STATES = 6
+
+RESULT_WAIT = 100
+CORRECT_WAIT = 100
+
 
 # Object IDs
 BACKGROUND = "background"
@@ -24,6 +30,8 @@ JUPITER = "jupiter"
 SATURN =  "saturn"
 URANUS =  "uranus"
 NEPTUNE = "neptune"
+
+PLANETS = [MERCURY, VENUS, EARTH, MARS, JUPITER, SATURN, URANUS, NEPTUNE]
 
 
 
@@ -59,6 +67,8 @@ FACT_FONT_SIZE = 40
 
 # Animation
 GLOW_SPEED = 50 #0-255, per frame
+
+
 
 
 

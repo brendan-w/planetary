@@ -16,7 +16,7 @@ import pygame
 from pygame.locals import QUIT, MOUSEBUTTONUP, MOUSEMOTION, VIDEORESIZE, ACTIVEEVENT
 
 # app
-import PlanetaryScreens
+from PlanetaryConstants import *
 from PlanetaryScreens import Home, Play
 
 
@@ -28,12 +28,29 @@ class Planetary:
         self.running = True # controls the exit of the game loop
         self.clock = pygame.time.Clock() # controls the frame rate
         self.forceAll = False # force an entire repaint of the screen on the next frame
+        self.clicked = None # the ID of the object that was clicked
+
+        # question data
         self.data = None  # check out init_data.json for the structure
         self.liveQuestions = None
         self.waitQuestions = None
 
-        self.currentQuestion = None
-        self.lastQuestion = None
+        # game logic
+        self.currentQuestion = None # the question the user is currently answering
+        self.lastQuestion = None # prevents the same question from being asked twice in a row
+        self.answer = None # tuple (win/loose, planet clicked)
+        self.waitTimes = [0, 0, 30, 30, 0, 0] # frame timers (one for each game state) (0 = no timer)
+        self.gameWait = 0 # frame counter for timers (counts UP from zero)
+        self.gameState = 0 # what stage in the round
+        '''
+        Game States:
+            0 = display new question
+            1 = wait for answer (planet click)
+            2 = display result (win/fail)
+            3 = display correct answer(s)
+            4 = display new fact
+            5 = wait for confirmation (button click)
+        '''
 
     # Called to load the state of the game from the Journal.
     def read_file(self, file_path):
@@ -79,25 +96,61 @@ class Planetary:
 
                 elif event.type == MOUSEBUTTONUP and (event.button == 1 or event.button == 3):
                     pos = pygame.mouse.get_pos()
-                    name = self.currentScreen.click(pos)
-                    print name
+                    self.clicked = self.currentScreen.click(pos)
+                    print self.clicked
                 
                 elif event.type == MOUSEMOTION:
                     pos = pygame.mouse.get_pos()
                     self.currentScreen.mousemove(pos)
-                
-            # switch for current screen
+
+            ''' 
+            switch for current screen
+            '''
             if self.currentScreen == self.homeScreen:
                 pass
+
             elif self.currentScreen == self.playScreen:
-                pass
-            
+                '''
+                switch for game state
+                '''
+                if self.gameState == 0:
+                    # choose a new question
+                    self.getQuestion()
+                    # display the question
+                    self.currentScreen.setQuestion(self.currentQuestion["question"])
+                    self.currentScreen.hideFact()
+                    self.advance()
+
+                elif self.gameState == 1:
+                    if self.clicked in PLANETS:
+                        win = self.testAnswer(self.clicked)
+                        self.answer = (win, self.clicked) # store the users answer so it can be displayed later
+                        print self.answer
+                        self.advance()
+
+                elif self.gameState == 2:
+                    
+                    self.frameTimer()
+                
+                elif self.gameState == 3:
+                    pass
+                
+                elif self.gameState == 4:
+                    pass
+                
+                elif self.gameState == 5:
+                    pass
+
+
             if self.forceAll:
                 print "force"
 
             # update the screen
             self.currentScreen.frame(self.forceAll)
+
+            # reset frame variables
             self.forceAll = False
+            self.clicked = None
 
             # keep at 30fps
             self.clock.tick(30)
@@ -105,11 +158,26 @@ class Planetary:
         # End of game loop
         pygame.quit()
 
+    # End of run function
+
+
+    # advances the game state once the given timer has expired
+    def frameTimer(self):
+        if self.gameWait >= self.waitTimes[self.gameState]:
+            self.advance()
+        else:
+            self.gameWait += 1
+
+    # advances the game state
+    def advance(self):
+        self.gameWait = 0
+        self.gameState += 1
+        self.gameState = self.gameState % TOTAL_STATES
 
     # chooses a new question for the user, and loads it into self.currentQuestion
-    def newQuestion(self, prevAnswer=None):
+    def getQuestion(self, prevAnswer=None):
         self.checkData()
-        
+
         self.lastQuestion = self.currentQuestion
 
         while self.currentQuestion == self.lastQuestion:
@@ -141,17 +209,18 @@ class Planetary:
             return False
 
 
-    def testAnswer(self, answer, question):
-        if answer in question.answers:
-            return True
-        else:
-            return False
+    # are you a winner? or are you a FAILURE
+    def testAnswer(self, answer, question=None):
+        if question == None:
+            question = self.currentQuestion
+
+        return answer in question["answers"]
 
 
     # in case sugar never called readFile, load the default game state
     def checkData(self):
         if self.data == None:
-            self.readFile("init_data.json")
+            self.read_file("init_data.json")
 
 
 # This function is called when the game is run directly from the command line:

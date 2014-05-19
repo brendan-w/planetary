@@ -39,7 +39,7 @@ class DisplayObject(Sprite):
 
 	# collides a global point coordinate with the image mask
 	def pointCollide(self, point):
-		if self.mask != None and self.rect.collidepoint(point):
+		if self.active and self.mask != None and self.rect.collidepoint(point):
 			point = (point[0] - self.x, point[1] - self.y)
 			return self.mask.get_at(point)
 		else:
@@ -155,18 +155,21 @@ class TextBox(DisplayObject):
 		pass
 
 	def blitTo(self, surface):
-		# loop through the lines and render
-		rects = []
-		for index, line in enumerate(self.lines):
-			self.image = self.font.render(line, True, self.text_color)
-			position = (self.x, self.y + (index * self.image.get_height()))
-			self.rect = surface.blit(self.image, position)
+		if self.active:	
+			# loop through the lines and render
+			rects = []
+			for index, line in enumerate(self.lines):
+				self.image = self.font.render(line, True, self.text_color)
+				position = (self.x, self.y + (index * self.image.get_height()))
+				self.rect = surface.blit(self.image, position)
 
-		if len(rects) > 0:
-			self.rect = EMPTY_RECT.unionall(rects)
+			if len(rects) > 0:
+				self.rect = EMPTY_RECT.unionall(rects)
+			else:
+				self.rect = EMPTY_RECT
+			return self.rect
 		else:
-			self.rect = EMPTY_RECT
-		return self.rect
+			return EMPTY_RECT
 
 	def setText(self, text):
 		text = text.strip()

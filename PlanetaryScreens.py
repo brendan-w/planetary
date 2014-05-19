@@ -6,7 +6,7 @@ the game. When frame() is called on a screen, it filters for changes in each
 sprites attributes, and blits the changed graphics. Switching screens forces all
 elements to be redrawn.
 
-all sprites should be a DisplayObject (see PlanetarySprites.py)
+all sprites should be a (or be derived from) DisplayObject (see PlanetarySprites.py)
 '''
 
 
@@ -78,7 +78,7 @@ class Screen(object):
 
 	# returns the key of the topmost sprite that collides with the point
 	def click(self, point):
-		response = ""
+		response = None
 		for key in self.sprites:
 			if self.sprites[key].pointCollide(point):
 				response = key
@@ -109,8 +109,6 @@ class Home(Screen):
 	def draw(self, key, sprite):
 		return sprite.blitTo(self.window)
 
-	def mousemove(self, point):
-		pass
 
 
 
@@ -140,9 +138,15 @@ class Play(Screen):
 	# object drawing routines. Returns Rect of area modified
 	def draw(self, key, sprite):
 		if isinstance(sprite, Planet):
-			# blit the portion of the background
+			# blit the masked portion of the background
 			self.sprites[BACKGROUND].blitMask(self.window, sprite.rect, sprite.glow_mask)
 			return sprite.blitTo(self.window)
+
+		elif isinstance(sprite, TextBox):
+			# blit the portion of the background
+			self.sprites[BACKGROUND].blitPortion(self.window, sprite.rect)
+			return sprite.blitTo(self.window)
+
 		else:
 			return sprite.blitTo(self.window)
 
@@ -154,3 +158,22 @@ class Play(Screen):
 					sprite.setGlow(True)
 				else:
 					sprite.setGlow(False)
+
+
+	# custom, screen-specific functions
+
+	def hideQuestion(self):
+		self.sprites[QUESTION].active = False
+
+	def setQuestion(self, question):
+		sprite = self.sprites[QUESTION]
+		sprite.active = True
+		sprite.setText(question)
+
+	def hideFact(self):
+		self.sprites[FACT].active = False
+
+	def setFact(self, fact):
+		sprite = self.sprites[FACT]
+		sprite.active = True
+		sprite.setText(fact)
