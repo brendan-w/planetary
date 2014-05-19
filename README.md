@@ -15,7 +15,7 @@ Handles basic sugar activity things, like the toolbar and read_file/write_file
 
 ###Planetary.py (Pygame App)
 
-Handles primary game logic and UI.
+Handles primary game logic and UI. Manages the game state and data. Switches and interacts with screen objects
 
 
 ###PlanetaryScreens.py (Pygame App)
@@ -28,7 +28,7 @@ Defines classes for the various screens in the game ("Home" and "Play" in this c
 Defines individual sprites (ie. "Planet", "Background", "TextBox"). Sprites handle their own graphics internally, and contain functions and switches for the screen class to change.
 
 
-###PlanetarySprites.py (Pygame App)
+###PlanetaryConstants.py (Pygame App)
 
 Game-wide constants and utility functions.
 
