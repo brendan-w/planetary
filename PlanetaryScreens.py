@@ -10,6 +10,7 @@ all sprites should be a (or be derived from) DisplayObject (see PlanetarySprites
 '''
 
 
+from random import randint
 import pygame
 from collections import OrderedDict
 
@@ -170,28 +171,39 @@ class Play(Screen):
 	def hideQuestion(self):
 		self.sprites[QUESTION].active = False
 
-	def setQuestion(self, question):
+	def setQuestion(self, text):
 		sprite = self.sprites[QUESTION]
 		sprite.active = True
-		sprite.setText(question)
+		sprite.setText(text)
 
 	def hideFact(self):
 		self.sprites[FACT].active = False
 
-	def setFact(self, fact):
+	def setFact(self, text):
 		sprite = self.sprites[FACT]
 		sprite.active = True
-		sprite.setText(fact)
+		sprite.setText(text)
 
-	def startPulse(self, answer):
-		sprite = self.sprites[answer[1]]
-		if answer[0]:
-			sprite.setGlowColor(GLOW_GREEN)
-		else:
-			sprite.setGlowColor(GLOW_RED)
+	def startPulse(self, planet, color):
+		sprite = self.sprites[planet]
+		sprite.setGlowColor(color)
 		sprite.startPulsing()
 
-	def stopPulse(self, answer):
-		sprite = self.sprites[answer[1]]
-		sprite.setGlowColor(GLOW_WHITE)
+	def stopPulse(self, planet):
+		sprite = self.sprites[planet]
 		sprite.stopPulsing()
+		sprite.setGlowColor(GLOW_WHITE)
+		sprite.setGlowSpeed(GLOW_SPEED_NORMAL)
+
+	def startRandomPulse(self, color):
+		for key in self.sprites:
+			if key in PLANETS:
+				p = self.sprites[key]
+				p.setGlowSpeed(randint(GLOW_SPEED_MIN, GLOW_SPEED_MAX))
+				self.startPulse(key, color)
+
+
+	def stopAllPulse(self):
+		for key in self.sprites:
+			if key in PLANETS:
+				self.stopPulse(key)

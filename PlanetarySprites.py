@@ -33,9 +33,7 @@ class DisplayObject(Sprite):
 	def blitTo(self, surface):
 		if self.active:
 			self.rect = surface.blit(self.image, (self.x, self.y))
-			return self.rect
-		else:
-			return EMPTY_RECT
+		return self.rect
 
 	# collides a global point coordinate with the image mask
 	def pointCollide(self, point):
@@ -181,15 +179,12 @@ class TextBox(DisplayObject):
 			for index, line in enumerate(self.lines):
 				self.image = self.font.render(line, True, self.text_color)
 				position = (self.x, self.y + (index * self.image.get_height()))
-				self.rect = surface.blit(self.image, position)
+				rects.append(surface.blit(self.image, position))
 
-			if len(rects) > 0:
-				self.rect = EMPTY_RECT.unionall(rects)
-			else:
-				self.rect = EMPTY_RECT
-			return self.rect
-		else:
-			return EMPTY_RECT
+			rects.append(self.rect) # causes textbox rect to expand to largest text so far
+			self.rect = EMPTY_RECT.unionall(rects)
+		
+		return self.rect
 
 	def setText(self, text):
 		text = text.strip()

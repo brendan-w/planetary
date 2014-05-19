@@ -36,10 +36,10 @@ class Planetary:
         self.waitQuestions = None
 
         # game logic
-        self.currentQuestion = None # the question the user is currently answering
+        self.question = None # the question the user is currently answering
         self.lastQuestion = None # prevents the same question from being asked twice in a row
         self.answer = None # tuple (win/loose, planet clicked)
-        self.waitTimes = [0, 0, 50, 50, 0, 0] # frame timers (one for each game state) (0 = no timer)
+        self.waitTimes = [0, 0, 37, 0, 54, 0] # frame timers (one for each game state) (0 = no timer)
         self.gameWait = 0 # frame counter for timers (counts UP from zero)
         self.gameState = 0 # what stage in the round
         '''
@@ -76,7 +76,7 @@ class Planetary:
         self.playScreen = Play()
 
         # set the initial screen
-        self.currentScreen = self.playScreen
+        self.screen = self.playScreen
 
 
         # The main game loop.
@@ -96,20 +96,19 @@ class Planetary:
 
                 elif event.type == MOUSEBUTTONUP and (event.button == 1 or event.button == 3):
                     pos = pygame.mouse.get_pos()
-                    self.clicked = self.currentScreen.click(pos)
-                    print self.clicked
+                    self.clicked = self.screen.click(pos)
                 
                 elif event.type == MOUSEMOTION:
                     pos = pygame.mouse.get_pos()
-                    self.currentScreen.mousemove(pos)
+                    self.screen.mousemove(pos)
 
             ''' 
             switch for current screen
             '''
-            if self.currentScreen == self.homeScreen:
+            if self.screen == self.homeScreen:
                 pass
 
-            elif self.currentScreen == self.playScreen:
+            elif self.screen == self.playScreen:
                 '''
                 switch for game state
                 '''
@@ -117,39 +116,56 @@ class Planetary:
                     # choose a new question
                     self.getQuestion()
                     # display the question
-                    self.playScreen.setQuestion(self.currentQuestion["question"])
-                    self.playScreen.hideFact()
-                    self.playScreen.mouseOverEnabled = True
+                    self.screen.setQuestion(self.question["question"])
+                    self.screen.hideFact()
+                    self.screen.mouseOverEnabled = True
                     self.advance()
 
-                elif self.gameState == 1:
+                elif self.gameState == 1: #============================================
                     if self.clicked in PLANETS:
                         win = self.testAnswer(self.clicked)
                         self.answer = (win, self.clicked) # store the users answer so it can be displayed later
+                        
                         # display the result
-                        self.playScreen.mouseOverEnabled = False
-                        self.playScreen.startPulse(self.answer)
+                        if win:
+                            color = GLOW_GREEN
+                            self.screen.setQuestion(WIN_TEXT)
+                        else:
+                            color = GLOW_RED
+                            self.screen.setQuestion(LOSE_TEXT)
+
+                        self.screen.startPulse(self.clicked, color)
+                        self.screen.mouseOverEnabled = False
                         self.advance()
 
-                elif self.gameState == 2:
-
+                elif self.gameState == 2: #============================================
+                    # waiting stage (clicked planet is currently pulsing)
                     self.frameTimer()
                 
-                elif self.gameState == 3:
-                    self.playScreen.stopPulse(self.answer)
+                elif self.gameState == 3: #============================================
+                    self.screen.stopPulse(self.answer[1])
+                    if self.answer[0]:
+                        # if they were right, do a flashy thing
+                        self.screen.startRandomPulse(GLOW_GREEN)
+                    else:
+                        # if they were wrong, highlight pulse the correct planets
+                        for planet in self.question["answers"]:
+                            self.screen.startPulse(planet, GLOW_YELLOW)
+
+                    self.advance()
                 
-                elif self.gameState == 4:
-                    pass
+                elif self.gameState == 4: #============================================
+                    # waiting stage (correct planet/happy flash is being displayed)
+                    self.frameTimer()
                 
-                elif self.gameState == 5:
-                    pass
+                elif self.gameState == 5: #============================================
+                    self.screen.stopAllPulse()
+                    self.screen.hideQuestion()
 
 
-            if self.forceAll:
-                print "force"
 
             # update the screen
-            self.currentScreen.frame(self.forceAll)
+            self.screen.frame(self.forceAll)
 
             # reset frame variables
             self.forceAll = False
@@ -177,14 +193,14 @@ class Planetary:
         self.gameState += 1
         self.gameState = self.gameState % TOTAL_STATES
 
-    # chooses a new question for the user, and loads it into self.currentQuestion
+    # chooses a new question for the user, and loads it into self.question
     def getQuestion(self, prevAnswer=None):
         self.checkData()
 
-        self.lastQuestion = self.currentQuestion
+        self.lastQuestion = self.question
 
-        while self.currentQuestion == self.lastQuestion:
-            self.currentQuestion = random.choice(self.liveQuestions)
+        while self.question == self.lastQuestion:
+            self.question = random.choice(self.liveQuestions)
 
 
     # search for a new fact (with question) linearly with an fact about the planet clicked
@@ -215,7 +231,7 @@ class Planetary:
     # are you a winner? or are you a FAILURE
     def testAnswer(self, answer, question=None):
         if question == None:
-            question = self.currentQuestion
+            question = self.question
 
         return answer in question["answers"]
 
