@@ -11,12 +11,6 @@ Constants
 EMPTY_RECT = Rect(0,0,0,0)
 
 
-# Game Logic
-TOTAL_STATES = 11
-
-RESULT_WAIT = 100
-CORRECT_WAIT = 100
-
 
 # Object IDs
 BACKGROUND = "background"

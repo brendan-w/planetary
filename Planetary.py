@@ -158,28 +158,21 @@ class Planetary:
                 
                 elif self.gameState == 4: #============================================
                     # waiting stage (correct planet/happy flash is being displayed)
-                    self.frameTimer(54)
+                    self.frameTimer(40)
                 
                 elif self.gameState == 5: #============================================
                     self.screen.stopAllPulse()
                     self.screen.setText(NEXT_FACT_TEXT)
                     self.advance()
 
-
-
-
-
                 elif self.gameState == 6: #============================================
-                    # rest while user reads text
+                    # rest while user reads the "next fact" text
                     self.frameTimer(30)
 
                 elif self.gameState == 7: #============================================
                     # fade out the "next fact" text
                     self.screen.hideText()
                     self.advance()
-
-
-
 
                 elif self.gameState == 8: #============================================
                     # wait while text fades out
@@ -200,7 +193,7 @@ class Planetary:
                     if self.clicked == NEXT_BUTTON:
                         self.screen.stopAllPulse()
                         self.screen.hideText()
-                        self.advance()
+                        self.loop() # that's it! go back to gameState = 0
 
 
 
@@ -232,7 +225,11 @@ class Planetary:
     def advance(self):
         self.gameWait = 0
         self.gameState += 1
-        self.gameState = self.gameState % TOTAL_STATES
+
+    # send the game state back to the beginning
+    def loop(self):
+        self.gameWait = 0
+        self.gameState = 0
 
     # chooses a new question for the user, and loads it into self.question
     def getQuestion(self, prevAnswer=None):
