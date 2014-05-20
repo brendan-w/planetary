@@ -33,6 +33,10 @@ This creates an Activities directory in your home folder (if there wasn't one al
 
 	sugar-emulator -i 1200x900
 
+This will launch the emulator. After picking your colored icon and whatnot, it will drop you off at the home screen (the Wheel of activities). To make Planetary show up in the wheel, click on the list icon in the upper right corner, scroll to Planetary, and click on the star. Now, if you go back to the wheel version of the home screen, the Planetary icon should appear.
+
+Every time you run a version of an Activity on the XO, it stores both the app itself, and any progress/resume files to the journal. To delete an old version of the activity (as is neccessary in development), you must delete all of your activity's entries in the journal.
+
 ###Testing on an XO
 To run the game on an XO, you will need to build an XO file. This is incredibly complicated. You will need to run:
 
