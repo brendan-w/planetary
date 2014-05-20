@@ -15,7 +15,9 @@ EMPTY_RECT = Rect(0,0,0,0)
 # Object IDs
 BACKGROUND = "background"
 TEXTBOX = "textbox"
-NEXT_BUTTON = "next"
+OK_BUTTON = "ok"
+HOME_BUTTON = "home"
+PLAY_BUTTON = "play"
 
 MERCURY = "mercury"
 VENUS =   "venus"
@@ -40,8 +42,10 @@ JUPITER_POS = (360, 230 + V)
 SATURN_POS =  (610, 110 + V)
 URANUS_POS =  (880, 90 + V)
 NEPTUNE_POS = (1020,0 + V)
+
 TEXTBOX_POS = (15,0)
 
+OK_BUTTON_POS = (15, 130)
 
 
 # Colors
@@ -50,16 +54,16 @@ GLOW_RED =   (255, 50, 50)
 GLOW_GREEN = (0, 255, 0)
 GLOW_YELLOW = (255, 255, 0)
 FONT_COLOR = Color(255,255,255,255)
+BUTTON_COLOR = (0, 136, 255)
 
 
 # Text
-FONT = "assets/titillium-regular.ttf"
 MAX_CHARS = 40
 FONT_SIZE = 40
 
 WIN_TEXT = "Correct!"
 LOSE_TEXT = "Incorrect"
-NEXT_FACT_TEXT = "Next planet fact:"
+NEXT_FACT_TEXT = "Next planet fact"
 
 
 # Animation
@@ -67,7 +71,7 @@ GLOW_SPEED_NORMAL = 50 #0-255, per frame
 GLOW_SPEED_MIN = 30
 GLOW_SPEED_MAX = 80
 
-TEXT_SPEED = 10
+FADE_SPEED = 10
 
 
 

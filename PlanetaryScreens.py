@@ -21,11 +21,12 @@ from PlanetaryConstants import *
 oldScreen = None
 
 # a place to store sprites that are common across screens
-commonSprites = {}
+commonComponents = {}
 
 def load():
-	global commonSprites
-	commonSprites[BACKGROUND] = TiledBackground("assets/space.png")
+	global commonComponents
+	commonComponents[BACKGROUND] = TiledBackground("assets/space.png")
+	commonComponents["text"] = pygame.font.Font("assets/titillium-regular.ttf", FONT_SIZE)
 
 
 '''
@@ -124,12 +125,13 @@ Class that draws the play screen
 '''
 class Play(Screen):
 	def __init__(self):
-		global commonSprites
+		global commonComponents
 		super(Play, self).__init__()
 
 		self.sprites = OrderedDict([
-			(BACKGROUND, commonSprites[BACKGROUND]),
-			(TEXTBOX,   TextBox(TEXTBOX_POS, MAX_CHARS, FONT, FONT_SIZE)),
+			(BACKGROUND, commonComponents[BACKGROUND]),
+			(TEXTBOX,    TextBox(TEXTBOX_POS, MAX_CHARS, commonComponents["text"])),
+			(OK_BUTTON,   Button(OK_BUTTON_POS, "assets/button.png", commonComponents["text"], "OK")),
 			(MERCURY, Planet(MERCURY_POS, "assets/mercury.png", "assets/mercury_glow.png", "assets/mercury_mask.png")),
 			(VENUS,   Planet(VENUS_POS,   "assets/venus.png",   "assets/venus_glow.png",   "assets/venus_mask.png")),
 			(EARTH,   Planet(EARTH_POS,   "assets/earth.png",   "assets/earth_glow.png",   "assets/earth_mask.png")),
@@ -153,7 +155,7 @@ class Play(Screen):
 			self.sprites[BACKGROUND].blitMask(self.window, sprite.rect, sprite.glow_mask)
 			return sprite.blitTo(self.window)
 
-		elif isinstance(sprite, TextBox):
+		elif isinstance(sprite, TextBox) or isinstance(sprite, Button):
 			# blit the portion of the background
 			self.sprites[BACKGROUND].blitPortion(self.window, sprite.rect)
 			return sprite.blitTo(self.window)
@@ -174,8 +176,11 @@ class Play(Screen):
 
 	# custom, screen-specific functions
 
-	def hideText(self):
-		self.sprites[TEXTBOX].active = False
+	def showSprite(self, sprite):
+		self.sprites[sprite].active = True
+
+	def hideSprite(self, sprite):
+		self.sprites[sprite].active = False
 
 	def setText(self, text):
 		sprite = self.sprites[TEXTBOX]
@@ -203,7 +208,6 @@ class Play(Screen):
 				p = self.sprites[key]
 				p.setGlowSpeed(randint(GLOW_SPEED_MIN, GLOW_SPEED_MAX))
 				self.startPulse(key, color)
-
 
 	def stopAllPulse(self):
 		for key in self.sprites:

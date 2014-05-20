@@ -164,14 +164,14 @@ class Planet(DisplayObject):
 
 # renders text
 class TextBox(DisplayObject):
-	def __init__(self, pos, maxChars, fontPath, fontSize):
+	def __init__(self, pos, maxChars, font):
 		self.lines = []
 		self.text = ""
 		self.text_color = FONT_COLOR
 		self.max_chars = maxChars
-		self.font = Font(fontPath, fontSize)
+		self.font = font
 		self.alpha = 255
-		self.alpha_speed = TEXT_SPEED
+		self.alpha_speed = FADE_SPEED
 
 		self.setText("TextBox")
 		super(TextBox, self).__init__(pos, False)
@@ -186,20 +186,16 @@ class TextBox(DisplayObject):
 
 	def blitTo(self, surface):
 
-		if self.alpha > 0:
-			# loop through the lines and render
-			rects = []
-			for index, line in enumerate(self.lines):
-				self.image = self.font.render(line, True, self.text_color)
-				
-				if self.alpha < 255:
-					self.image = self.setOpacity(self.image, self.alpha)
+		# loop through the lines and render
+		rects = []
+		for index, line in enumerate(self.lines):
+			self.image = self.font.render(line, True, self.text_color)
+			self.image = self.setOpacity(self.image, self.alpha)
+			position = (self.x, self.y + (index * self.image.get_height()))
+			rects.append(surface.blit(self.image, position))
 
-				position = (self.x, self.y + (index * self.image.get_height()))
-				rects.append(surface.blit(self.image, position))
-
-			rects.append(self.rect) # causes textbox rect to expand to largest text so far
-			self.rect = EMPTY_RECT.unionall(rects)
+		rects.append(self.rect) # causes textbox rect to expand to largest text so far
+		self.rect = EMPTY_RECT.unionall(rects)
 		
 		return self.rect
 
@@ -223,4 +219,39 @@ class TextBox(DisplayObject):
 
 	def hash(self):
 		return super(TextBox, self).hash() + (self.text, self.text_color, self.max_chars, self.alpha)
-		
+
+
+
+
+class Button(DisplayObject):
+	def __init__(self, pos, imagePath, font, text):
+		image = pygame.image.load(imagePath).convert_alpha()
+		image = self.setOpacity(image, 255, BUTTON_COLOR)
+		textGraphics = font.render(text, True, (255, 255, 255))
+
+		xoff = int((image.get_width() - textGraphics.get_width()) / 2)
+		yoff = int((image.get_height() - textGraphics.get_height()) / 2)
+		image.blit(textGraphics, (xoff, yoff))
+
+		self.alpha = 0
+		self.alpha_speed = FADE_SPEED
+
+		super(Button, self).__init__(pos, True, image)
+
+		self.active = False
+
+	def animate(self):
+		# opacity fader
+		if self.active and self.alpha < 255:
+			self.alpha += self.alpha_speed
+		elif not self.active and self.alpha > 0:
+			self.alpha -= self.alpha_speed
+		self.alpha = clamp(self.alpha, 0, 255)
+
+	def blitTo(self, surface):
+		print "button"
+		image = self.setOpacity(self.image, self.alpha)
+		return surface.blit(image, (self.x, self.y))
+
+	def hash(self):
+		return super(Button, self).hash() + (self.alpha,)

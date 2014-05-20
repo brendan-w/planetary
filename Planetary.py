@@ -44,12 +44,7 @@ class Planetary:
         self.gameState = 0 # what stage in the round
         '''
         Game States:
-            0 = display new question
-            1 = wait for answer (planet click)
-            2 = display result (win/fail)
-            3 = display correct answer(s)
-            4 = display new fact
-            5 = wait for confirmation (button click)
+            #TODO
         '''
 
     # Called to load the state of the game from the Journal.
@@ -98,6 +93,7 @@ class Planetary:
                 elif event.type == MOUSEBUTTONUP and (event.button == 1 or event.button == 3):
                     pos = pygame.mouse.get_pos()
                     self.clicked = self.screen.click(pos)
+                    print self.clicked
                 
                 elif event.type == MOUSEMOTION:
                     pos = pygame.mouse.get_pos()
@@ -137,7 +133,7 @@ class Planetary:
 
                         self.screen.startPulse(self.clicked, color)
                         self.screen.mouseOverEnabled = False
-                        self.screen.hideText()
+                        self.screen.hideSprite(TEXTBOX)
                         self.advance()
 
                 elif self.gameState == 2: #============================================
@@ -157,13 +153,19 @@ class Planetary:
                     self.advance()
                 
                 elif self.gameState == 4: #============================================
-                    # waiting stage (correct planet/happy flash is being displayed)
+                    # waiting stage (correct planet or happy flash is being displayed)
                     self.frameTimer(40)
                 
                 elif self.gameState == 5: #============================================
                     self.screen.stopAllPulse()
-                    self.screen.setText(NEXT_FACT_TEXT)
-                    self.advance()
+
+                    # if they got it wrong, send them back to the beginning
+                    if self.answer[0] == False:
+                        self.loop()
+                    else:
+                        # stop the pulses, and display "next fact"
+                        self.screen.setText(NEXT_FACT_TEXT)
+                        self.advance()
 
                 elif self.gameState == 6: #============================================
                     # rest while user reads the "next fact" text
@@ -171,7 +173,7 @@ class Planetary:
 
                 elif self.gameState == 7: #============================================
                     # fade out the "next fact" text
-                    self.screen.hideText()
+                    self.screen.hideSprite(TEXTBOX)
                     self.advance()
 
                 elif self.gameState == 8: #============================================
@@ -183,6 +185,7 @@ class Planetary:
                     fact = self.getFact(self.answer[1])
                     # display the fact and its planets
                     self.screen.setText(fact["fact"])
+                    self.screen.showSprite(OK_BUTTON)
                     for planet in fact["answers"]:
                         self.screen.startPulse(planet, GLOW_WHITE)
 
@@ -190,10 +193,18 @@ class Planetary:
 
                 elif self.gameState == 10: #============================================
                     # wait for confirmation from the user before user
-                    if self.clicked == NEXT_BUTTON:
+                    if self.clicked == OK_BUTTON:
                         self.screen.stopAllPulse()
-                        self.screen.hideText()
-                        self.loop() # that's it! go back to gameState = 0
+                        self.screen.hideSprite(TEXTBOX)
+                        self.screen.hideSprite(OK_BUTTON)
+                        self.advance()
+
+                elif self.gameState == 11: #============================================
+                    # wait while text and button fades out
+                    self.frameTimer(30)
+
+                elif self.gameState == 12: #============================================
+                    self.loop() # that's it! go back to gameState = 0
 
 
 
