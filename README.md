@@ -4,8 +4,8 @@ Planetary
 Solar system game for the XO PC. Teaches kids about the arrangment of the solar system, and about the planets themselves.
 
 ###Requirements
->Python 2.7
->Pygame
+	Python 2.7
+	Pygame
 
 How to Run
 =========
@@ -18,6 +18,27 @@ This game can be played as a desktop application. As long as python and pygame a
 
 ###Running on an XO
 Get a flash drive (or USB volume of your choice), copy the Planetary-#.xo file into the root. Then, plug the drive into XO, and go to the journal. After a second or two, a small flash drive icon will appear in the lower left corner. Click this icon, and you will be presented with a file list. Simply click on the Planetary-#.xo file, and it will install and run.
+
+
+Developers
+==========
+Developing is fairly straight-forward, since python files run as interpreted plaintext. The bigger challenge is testing and debugging. While the app can be run as a standalone pygame app, you will still need to test your code on an XO or an XO emulator. It is strongly recomended that you use a linux machine for this, since Sugar (the XO environment) is linux based (I used Ubuntu with no difficulties).
+
+###Testing with an emulator
+Testing on your local machine means you need to install the python-sugar3 library. Simply search for and install it from your local package repository. Now, for running Sugar itself, you could load up a virtual machine with Sugar on it, but using the sugar-emulator is much simpler, and much faster. It should be an available package with most linux distros. After installing sugar-emulator, you will need to run:
+
+	./setup.py dev
+
+This creates an Activities directory in your home folder (if there wasn't one already), and places a symbolic link inside that leads to the project's root folder. Once this is done, you can simply run:
+
+	sugar-emulator -i 1200x900
+
+###Testing on an XO
+To run the game on an XO, you will need to build an XO file. This is incredibly complicated. You will need to run:
+
+	./build.sh
+
+This will generate a *.xo file in your root folder, which you can run on an XO using the instructions in the How To Play section.
 
 
 File Explanations
