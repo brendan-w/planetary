@@ -107,7 +107,7 @@ class Planetary:
 
             elif self.screen == self.playScreen:
                 if self.clicked == HOME_BUTTON:
-                    self.screen = homeScreen
+                    self.screen = self.homeScreen
 
                 '''
                 switch for game state
