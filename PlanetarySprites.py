@@ -43,6 +43,13 @@ class DisplayObject(Sprite):
 		else:
 			return False
 	
+	# sets the opacity of the given image
+	def setOpacity(self, image, opacity, color=(255,255,255)):
+		imageCopy = image.copy()
+		rgba = color + (opacity,)
+		imageCopy.fill(rgba, None, pygame.BLEND_RGBA_MULT)
+		return imageCopy
+
 	# called every frame
 	def animate(self):
 		self.rect = pygame.Rect(self.x, self.y, self.rect[2], self.rect[3])
@@ -131,9 +138,7 @@ class Planet(DisplayObject):
 	def blitTo(self, surface):
 		# can't use set_alpha() because image already contains a per-pixel alpha channel
 		if self.glow_alpha != 0:
-			glowA = self.glow.copy()
-			color = self.glow_color + (self.glow_alpha,)
-			glowA.fill(color, None, pygame.BLEND_RGBA_MULT)
+			glowA = self.setOpacity(self.glow, self.glow_alpha, self.glow_color)
 			surface.blit(glowA, (self.x, self.y))
 		return super(Planet, self).blitTo(surface)
 
@@ -165,19 +170,31 @@ class TextBox(DisplayObject):
 		self.text_color = FONT_COLOR
 		self.max_chars = maxChars
 		self.font = Font(fontPath, fontSize)
+		self.alpha = 255
+		self.alpha_speed = TEXT_SPEED
 
 		self.setText("TextBox")
 		super(TextBox, self).__init__(pos, False)
 
 	def animate(self):
-		pass
+		# opacity fader
+		if self.active and self.alpha < 255:
+			self.alpha += self.alpha_speed
+		elif not self.active and self.alpha > 0:
+			self.alpha -= self.alpha_speed
+		self.alpha = clamp(self.alpha, 0, 255)
 
 	def blitTo(self, surface):
-		if self.active:	
+
+		if self.alpha > 0:
 			# loop through the lines and render
 			rects = []
 			for index, line in enumerate(self.lines):
 				self.image = self.font.render(line, True, self.text_color)
+				
+				if self.alpha < 255:
+					self.image = self.setOpacity(self.image, self.alpha)
+
 				position = (self.x, self.y + (index * self.image.get_height()))
 				rects.append(surface.blit(self.image, position))
 
@@ -205,5 +222,5 @@ class TextBox(DisplayObject):
 		self.lines.append(text) #dont forget about the last line!
 
 	def hash(self):
-		return super(TextBox, self).hash() + (self.text, self.text_color, self.max_chars)
+		return super(TextBox, self).hash() + (self.text, self.text_color, self.max_chars, self.alpha)
 		

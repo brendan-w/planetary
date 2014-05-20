@@ -20,8 +20,7 @@ CORRECT_WAIT = 100
 
 # Object IDs
 BACKGROUND = "background"
-QUESTION = "question"
-FACT = "fact"
+TEXTBOX = "textbox"
 NEXT_BUTTON = "next"
 
 MERCURY = "mercury"
@@ -47,8 +46,7 @@ JUPITER_POS = (360, 230 + V)
 SATURN_POS =  (610, 110 + V)
 URANUS_POS =  (880, 90 + V)
 NEPTUNE_POS = (1020,0 + V)
-QUESTION_POS = (15,0)
-FACT_POS =     (15,150)
+TEXTBOX_POS = (15,0)
 
 
 
@@ -62,10 +60,8 @@ FONT_COLOR = Color(255,255,255,255)
 
 # Text
 FONT = "assets/titillium-regular.ttf"
-QUESTION_MAX_CHARS = 40
-QUESTION_FONT_SIZE = 40
-FACT_MAX_CHARS = 40
-FACT_FONT_SIZE = 40
+MAX_CHARS = 40
+FONT_SIZE = 40
 
 WIN_TEXT = "Correct!"
 LOSE_TEXT = "Incorrect"
@@ -76,6 +72,8 @@ NEXT_FACT_TEXT = "Next planet fact:"
 GLOW_SPEED_NORMAL = 50 #0-255, per frame
 GLOW_SPEED_MIN = 30
 GLOW_SPEED_MAX = 80
+
+TEXT_SPEED = 20
 
 
 

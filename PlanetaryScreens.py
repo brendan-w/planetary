@@ -129,8 +129,7 @@ class Play(Screen):
 
 		self.sprites = OrderedDict([
 			(BACKGROUND, commonSprites[BACKGROUND]),
-			(QUESTION,   TextBox(QUESTION_POS, QUESTION_MAX_CHARS, FONT, QUESTION_FONT_SIZE)),
-			(FACT,     TextBox(FACT_POS, FACT_MAX_CHARS, FONT, FACT_FONT_SIZE)),
+			(TEXTBOX,   TextBox(TEXTBOX_POS, MAX_CHARS, FONT, FONT_SIZE)),
 			(MERCURY, Planet(MERCURY_POS, "assets/mercury.png", "assets/mercury_glow.png", "assets/mercury_mask.png")),
 			(VENUS,   Planet(VENUS_POS,   "assets/venus.png",   "assets/venus_glow.png",   "assets/venus_mask.png")),
 			(EARTH,   Planet(EARTH_POS,   "assets/earth.png",   "assets/earth_glow.png",   "assets/earth_mask.png")),
@@ -175,19 +174,11 @@ class Play(Screen):
 
 	# custom, screen-specific functions
 
-	def hideQuestion(self):
-		self.sprites[QUESTION].active = False
+	def hideText(self):
+		self.sprites[TEXTBOX].active = False
 
-	def setQuestion(self, text):
-		sprite = self.sprites[QUESTION]
-		sprite.active = True
-		sprite.setText(text)
-
-	def hideFact(self):
-		self.sprites[FACT].active = False
-
-	def setFact(self, text):
-		sprite = self.sprites[FACT]
+	def setText(self, text):
+		sprite = self.sprites[TEXTBOX]
 		sprite.active = True
 		sprite.setText(text)
 

@@ -118,8 +118,7 @@ class Planetary:
                     # choose a new question
                     self.getQuestion()
                     # display the question
-                    self.screen.setQuestion(self.question["question"])
-                    self.screen.hideFact()
+                    self.screen.setText(self.question["question"])
                     self.screen.setAllColor(GLOW_WHITE)
                     self.screen.mouseOverEnabled = True
                     self.advance()
@@ -132,10 +131,10 @@ class Planetary:
                         # display the result
                         if win:
                             color = GLOW_GREEN
-                            self.screen.setQuestion(WIN_TEXT)
+                            self.screen.setText(WIN_TEXT)
                         else:
                             color = GLOW_RED
-                            self.screen.setQuestion(LOSE_TEXT)
+                            self.screen.setText(LOSE_TEXT)
 
                         self.screen.startPulse(self.clicked, color)
                         self.screen.mouseOverEnabled = False
@@ -163,7 +162,7 @@ class Planetary:
                 
                 elif self.gameState == 5: #============================================
                     self.screen.stopAllPulse()
-                    self.screen.setQuestion(NEXT_FACT_TEXT)
+                    self.screen.setText(NEXT_FACT_TEXT)
                     self.advance()
 
                 elif self.gameState == 6: #============================================
@@ -174,7 +173,7 @@ class Planetary:
                     # choose the next fact
                     fact = self.getFact(self.answer[1])
                     # display the fact and its planets
-                    self.screen.setFact(fact["fact"])
+                    self.screen.setText(fact["fact"])
                     for planet in fact["answers"]:
                         self.screen.startPulse(planet, GLOW_WHITE)
 
@@ -184,7 +183,7 @@ class Planetary:
                     # wait for confirmation from the user before user
                     if self.clicked == NEXT_BUTTON:
                         self.screen.stopAllPulse()
-                        self.screen.hideFact()
+                        self.screen.hideText()
                         self.advance()
 
 
