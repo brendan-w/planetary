@@ -93,7 +93,6 @@ class Planetary:
                 elif event.type == MOUSEBUTTONUP and (event.button == 1 or event.button == 3):
                     pos = pygame.mouse.get_pos()
                     self.clicked = self.screen.click(pos)
-                    print self.clicked
                 
                 elif event.type == MOUSEMOTION:
                     pos = pygame.mouse.get_pos()
@@ -107,6 +106,9 @@ class Planetary:
                     self.screen = self.playScreen
 
             elif self.screen == self.playScreen:
+                if self.clicked == HOME_BUTTON:
+                    self.screen = homeScreen
+
                 '''
                 switch for game state
                 '''

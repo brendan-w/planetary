@@ -139,6 +139,7 @@ class Play(Screen):
 			(BACKGROUND, commonComponents[BACKGROUND]),
 			(TEXTBOX,    TextBox(TEXTBOX_POS, MAX_CHARS, commonComponents["text"])),
 			(OK_BUTTON,   Button(OK_BUTTON_POS, "assets/button.png", commonComponents["text"], "OK")),
+			(HOME_BUTTON,   Button(HOME_BUTTON_POS, "assets/button.png", commonComponents["text"], "HOME")),
 			(MERCURY, Planet(MERCURY_POS, "assets/mercury.png", "assets/mercury_glow.png", "assets/mercury_mask.png")),
 			(VENUS,   Planet(VENUS_POS,   "assets/venus.png",   "assets/venus_glow.png",   "assets/venus_mask.png")),
 			(EARTH,   Planet(EARTH_POS,   "assets/earth.png",   "assets/earth_glow.png",   "assets/earth_mask.png")),
@@ -149,10 +150,10 @@ class Play(Screen):
 			(NEPTUNE, Planet(NEPTUNE_POS, "assets/neptune.png", "assets/neptune_glow.png", "assets/neptune_mask.png")),
 		])
 
+		self.sprites[HOME_BUTTON].active = True
+
 		# custom screen variables
 		self.mouseOverEnabled = True
-
-		#super(Play, self).saveOld()
 
 
 	# object drawing routines. Returns Rect of area modified
