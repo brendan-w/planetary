@@ -170,11 +170,12 @@ class TextBox(DisplayObject):
 		self.text_color = FONT_COLOR
 		self.max_chars = maxChars
 		self.font = font
-		self.alpha = 255
+		self.alpha = 0
 		self.alpha_speed = FADE_SPEED
 
 		self.setText("TextBox")
 		super(TextBox, self).__init__(pos, False)
+		self.active = False
 
 	def animate(self):
 		# opacity fader
@@ -249,7 +250,6 @@ class Button(DisplayObject):
 		self.alpha = clamp(self.alpha, 0, 255)
 
 	def blitTo(self, surface):
-		print "button"
 		image = self.setOpacity(self.image, self.alpha)
 		return surface.blit(image, (self.x, self.y))
 

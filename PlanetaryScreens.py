@@ -103,6 +103,8 @@ class Screen(object):
 
 
 
+
+
 '''
 Class that draws the home screen
 '''
@@ -111,11 +113,16 @@ class Home(Screen):
 		super(Home, self).__init__()
 
 		self.sprites = OrderedDict([
-			(BACKGROUND, TiledBackground("assets/space.png")),
+			(BACKGROUND,  commonComponents[BACKGROUND]),
+			(PLAY_BUTTON, Button(PLAY_BUTTON_POS, "assets/button.png", commonComponents["text"], "PLAY")),
 		])
+
+		self.sprites[PLAY_BUTTON].active = True
 
 	def draw(self, key, sprite):
 		return sprite.blitTo(self.window)
+
+
 
 
 

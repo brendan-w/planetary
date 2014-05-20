@@ -72,7 +72,7 @@ class Planetary:
         self.playScreen = Play()
 
         # set the initial screen
-        self.screen = self.playScreen
+        self.screen = self.homeScreen
 
 
         # The main game loop.
@@ -103,7 +103,8 @@ class Planetary:
             switch for current screen
             '''
             if self.screen == self.homeScreen:
-                pass
+                if self.clicked == PLAY_BUTTON:
+                    self.screen = self.playScreen
 
             elif self.screen == self.playScreen:
                 '''
@@ -205,8 +206,6 @@ class Planetary:
 
                 elif self.gameState == 12: #============================================
                     self.loop() # that's it! go back to gameState = 0
-
-
 
 
             # update the screen
