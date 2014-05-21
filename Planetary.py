@@ -141,13 +141,13 @@ class Planetary:
 
                 elif self.gameState == 2: #============================================
                     # waiting stage (clicked planet is currently pulsing)
-                    self.frameTimer(37)
+                    self.frameTimer(40)
                 
                 elif self.gameState == 3: #============================================
                     self.screen.stopPulse(self.answer[1])
                     if self.answer[0]:
                         # if they were right, do a flashy thing
-                        self.screen.startRandomPulse(GLOW_GREEN)
+                        self.screen.startAllPulse(GLOW_GREEN)
                     else:
                         # if they were wrong, highlight pulse the correct planets
                         for planet in self.question["answers"]:
@@ -157,7 +157,7 @@ class Planetary:
                 
                 elif self.gameState == 4: #============================================
                     # waiting stage (correct planet or happy flash is being displayed)
-                    self.frameTimer(40)
+                    self.frameTimer(55)
                 
                 elif self.gameState == 5: #============================================
                     self.screen.stopAllPulse()
@@ -294,7 +294,7 @@ class Planetary:
 # ./Planetary.py
 def main():
     pygame.init()
-    pygame.display.set_mode((1200, 900), pygame.RESIZABLE)
+    pygame.display.set_mode((1200, 900 - 54), pygame.RESIZABLE) # 54 = height of sugar toolbar
     game = Planetary()
     #game.read_file("init_data.json")
     game.run()

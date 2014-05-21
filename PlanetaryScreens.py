@@ -209,13 +209,11 @@ class Play(Screen):
 	def stopPulse(self, planet):
 		sprite = self.sprites[planet]
 		sprite.stopPulsing()
-		sprite.setGlowSpeed(GLOW_SPEED_NORMAL)
 
-	def startRandomPulse(self, color):
+	def startAllPulse(self, color):
 		for key in self.sprites:
 			if key in PLANETS:
 				p = self.sprites[key]
-				p.setGlowSpeed(randint(GLOW_SPEED_MIN, GLOW_SPEED_MAX))
 				self.startPulse(key, color)
 
 	def stopAllPulse(self):

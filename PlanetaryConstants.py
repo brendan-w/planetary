@@ -71,9 +71,7 @@ NEXT_FACT_TEXT = "Next planet fact"
 
 
 # Animation
-GLOW_SPEED_NORMAL = 50 #0-255, per frame
-GLOW_SPEED_MIN = 30
-GLOW_SPEED_MAX = 80
+GLOW_SPEED = 50 #0-255, per frame
 
 FADE_SPEED = 10
 

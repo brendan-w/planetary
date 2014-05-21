@@ -122,7 +122,7 @@ class Planet(DisplayObject):
 		self.glowing = False
 		self.glow_alpha = 0
 		self.glow_color = GLOW_WHITE
-		self.glow_speed = GLOW_SPEED_NORMAL
+		self.glow_speed = GLOW_SPEED
 		self.pulsing = False
 		super(Planet, self).__init__(pos, True, image)
 
@@ -153,9 +153,6 @@ class Planet(DisplayObject):
 
 	def setGlowColor(self, color):
 		self.glow_color = color
-
-	def setGlowSpeed(self, speed):
-		self.glow_speed = speed
 
 	def startPulsing(self):
 		self.pulsing = True
