@@ -115,6 +115,7 @@ class Home(Screen):
 		self.sprites = OrderedDict([
 			(BACKGROUND,  commonComponents[BACKGROUND]),
 			(PLAY_BUTTON, Button(PLAY_BUTTON_POS, "assets/button.png", commonComponents["text"], "PLAY")),
+			(LOGO, Image(LOGO_POS, "assets/logo.png")),
 		])
 
 		self.sprites[PLAY_BUTTON].active = True

@@ -71,6 +71,12 @@ class DisplayObject(Sprite):
 Subclasses of DisplayObject
 '''
 
+class Image(DisplayObject):
+	def __init__(self, pos, imagePath):
+		image = pygame.image.load(imagePath).convert_alpha()
+		super(Image, self).__init__(pos, False, image)
+
+
 # creates a background image by tiling the given image
 class TiledBackground(DisplayObject):
 

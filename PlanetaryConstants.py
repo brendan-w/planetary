@@ -14,6 +14,7 @@ EMPTY_RECT = Rect(0,0,0,0)
 
 # Object IDs
 BACKGROUND = "background"
+LOGO = "logo"
 TEXTBOX = "textbox"
 OK_BUTTON = "ok"
 HOME_BUTTON = "home"
@@ -48,6 +49,8 @@ TEXTBOX_POS = (15,0)
 OK_BUTTON_POS = (15, 130)
 HOME_BUTTON_POS = (935, 700)
 PLAY_BUTTON_POS = (475, 500)
+
+LOGO_POS = (400, 50)
 
 # Colors
 GLOW_WHITE = (255, 255, 255)
