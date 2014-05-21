@@ -72,5 +72,6 @@ Game-wide constants and utility functions.
 ###init_data.json (question set / game state)
 Written in JSON, questions are stored in one of two lists. "live" holds questions that are in play (that the user should be able to answer), and "wait" holds potential questions. Each question can have multiple answers. This file is only used for starting a game. Once a game is started and saved, the instance JSON (game state) is saved to the journal.
 
-###License
+License
+=======
 Planetary source code is licensed under GPL v2. Artwork is licensed under Creative Commons Attribution 4.0 International.
