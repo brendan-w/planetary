@@ -44,7 +44,7 @@
 
 		{
 			"fact": "<start>",
-			"question": "Click on 8th planet.",
+			"question": "Click on the 8th planet.",
 			"answers": ["neptune"]
 		}
 	],
@@ -123,15 +123,21 @@
 		},
 
 		{
-			"fact": "Mercury, Venus, Earth, Mars, and Jupiter have no visible rings.",
-			"question": "Which planets have no rings",
+			"fact": "Mercury, Venus, Earth, Mars, and Jupiter have no rings.",
+			"question": "Which planets have no rings?",
 			"answers": ["mercury", "venus", "earth", "mars", "jupiter"]
 		},
 
 		{
-			"fact": "Saturn, Uranus, Neptune have rings",
-			"question": "Which planets have rings",
-			"answers": ["saturn", "uranus", "neptune"]
+			"fact": "Saturn has the brightest rings",
+			"question": "Which planet has the brightest rings?",
+			"answers": ["saturn"]
+		},
+
+		{
+			"fact": "Uranus and Neptune have rings, but they are dim.",
+			"question": "Which planet has dim rings?",
+			"answers": ["uranus", "neptune"]
 		},
 
 		{

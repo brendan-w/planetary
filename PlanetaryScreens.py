@@ -3,8 +3,8 @@ System for handling STATIC pygame screens efficiently
 
 Each screen object has an OrderedDict of DisplayObjects that can be modified by
 the game. When frame() is called on a screen, it filters for changes in each
-sprites attributes, and blits the changed graphics. Switching screens forces all
-elements to be redrawn.
+sprites attributes (by calling .hash() ), and blits the changed graphics. Switching
+screens forces all elements to be redrawn.
 
 all sprites should be a (or be derived from) DisplayObject (see PlanetarySprites.py)
 '''

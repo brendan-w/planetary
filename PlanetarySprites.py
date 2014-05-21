@@ -1,6 +1,9 @@
 '''
 Sprite object definitions.
-DisplayObject is the base class for displaying clickable images.
+
+DisplayObject is the base class for displaying clickable images. It handles the drawing,
+moving, clicking, and hashing of a basic image. Subclasses of DisplayObject can and should
+override functions like blitTo(), animate() and hash()
 '''
 
 import math
