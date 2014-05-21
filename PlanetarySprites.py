@@ -65,9 +65,11 @@ class DisplayObject(Sprite):
 		self.x += p.x
 		self.y += p.y
 
-	# subclasses should override and append additional values
+	# return a tuple of all the data attributes on this displayobject
 	def hash(self):
-		return (self.x, self.y, self.active)
+		attr = [a for a in dir(self) if not a.startswith('__') and not callable(getattr(self, a))]
+		vals = [getattr(self, a) for a in attr]
+		return tuple(vals)
 
 
 '''
@@ -185,9 +187,6 @@ class Planet(DisplayObject):
 		self.pulsing = False
 		self.setGlow(False)
 
-	def hash(self):
-		return super(Planet, self).hash() + (self.glowing, self.glow_color, self.glow_frame)
-
 
 # renders text
 class TextBox(DisplayObject):
@@ -245,10 +244,6 @@ class TextBox(DisplayObject):
 
 		self.lines.append(text) #dont forget about the last line!
 
-	def hash(self):
-		return super(TextBox, self).hash() + (self.text, self.text_color, self.max_chars, self.alpha)
-
-
 
 
 class Button(DisplayObject):
@@ -279,6 +274,4 @@ class Button(DisplayObject):
 	def blitTo(self, surface):
 		image = self.setOpacity(self.image, self.alpha)
 		return surface.blit(image, (self.x, self.y))
-
-	def hash(self):
-		return super(Button, self).hash() + (self.alpha,)
+		
