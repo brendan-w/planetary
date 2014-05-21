@@ -151,7 +151,7 @@ class Planetary:
                     else:
                         # if they were wrong, highlight pulse the correct planets
                         for planet in self.question["answers"]:
-                            self.screen.startPulse(planet, GLOW_YELLOW)
+                            self.screen.startPulse(planet, GLOW_GREEN)
 
                     self.advance()
                 

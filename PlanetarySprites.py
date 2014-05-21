@@ -121,7 +121,6 @@ class Planet(DisplayObject):
 		glow = pygame.image.load(glowPath).convert_alpha()
 		self.glow_white = []
 		self.glow_green = []
-		self.glow_yellow = []
 		self.glow_red = []
 
 						  # +1 for final 100% frame
@@ -130,7 +129,6 @@ class Planet(DisplayObject):
 			opacity = mapValue(i, 0, GLOW_FADE_FRAMES + 1, 0, 255)
 			self.glow_white.append(self.setOpacity(glow, opacity, GLOW_WHITE))
 			self.glow_green.append(self.setOpacity(glow, opacity, GLOW_GREEN))
-			self.glow_yellow.append(self.setOpacity(glow, opacity, GLOW_YELLOW))
 			self.glow_red.append(self.setOpacity(glow, opacity, GLOW_RED))
 
 
@@ -163,8 +161,6 @@ class Planet(DisplayObject):
 				glow = self.glow_white[self.glow_frame]
 			elif self.glow_color == GLOW_GREEN:
 				glow = self.glow_green[self.glow_frame]
-			elif self.glow_color == GLOW_YELLOW:
-				glow = self.glow_yellow[self.glow_frame]
 			elif self.glow_color == GLOW_RED:
 				glow = self.glow_red[self.glow_frame]
 
