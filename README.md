@@ -74,4 +74,4 @@ Written in JSON, questions are stored in one of two lists. "live" holds question
 
 License
 =======
-Planetary source code is licensed under GPL v2. Artwork is licensed under Creative Commons Attribution 4.0 International.
+Planetary source code is licensed under GPL v2. Artwork is licensed under [Creative Commons Attribution 4.0 International](http://creativecommons.org/licenses/by/4.0/legalcode).
