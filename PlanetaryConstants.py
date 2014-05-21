@@ -71,7 +71,7 @@ NEXT_FACT_TEXT = "Next planet fact"
 
 
 # Animation
-GLOW_SPEED = 50 #0-255, per frame
+GLOW_FADE_FRAMES = 6
 
 FADE_SPEED = 10
 
@@ -86,5 +86,5 @@ Utilities
 def clamp(value, min_value, max_value):
 	return max(min(value, max_value), min_value)
 
-def randomColor():
-	return (randint(0, 255), randint(0, 255), randint(0, 255))
+def mapValue(x, in_min, in_max, out_min, out_max):
+	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min

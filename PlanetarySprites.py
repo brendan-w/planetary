@@ -118,34 +118,59 @@ class Planet(DisplayObject):
 	def __init__(self, pos, imagePath, glowPath, maskPath):
 		image = pygame.image.load(imagePath).convert_alpha()
 		self.glow_mask = pygame.image.load(maskPath).convert_alpha()		
-		self.glow = pygame.image.load(glowPath).convert_alpha()
+		glow = pygame.image.load(glowPath).convert_alpha()
+		self.glow_white = []
+		self.glow_green = []
+		self.glow_yellow = []
+		self.glow_red = []
+
+						  # +1 for final 100% frame
+		for i in range(0, GLOW_FADE_FRAMES + 1):
+			i += 1
+			opacity = mapValue(i, 0, GLOW_FADE_FRAMES + 1, 0, 255)
+			self.glow_white.append(self.setOpacity(glow, opacity, GLOW_WHITE))
+			self.glow_green.append(self.setOpacity(glow, opacity, GLOW_GREEN))
+			self.glow_yellow.append(self.setOpacity(glow, opacity, GLOW_YELLOW))
+			self.glow_red.append(self.setOpacity(glow, opacity, GLOW_RED))
+
+
 		self.glowing = False
-		self.glow_alpha = 0
+		self.glow_frame = 0
 		self.glow_color = GLOW_WHITE
-		self.glow_speed = GLOW_SPEED
 		self.pulsing = False
 		super(Planet, self).__init__(pos, True, image)
 
 	def animate(self):
 		# pulser
 		if self.pulsing:
-			if self.glow_alpha <= 0:
+			if self.glow_frame <= 0:
 				self.setGlow(True)
-			elif self.glow_alpha >= 255:
+			elif self.glow_frame >= GLOW_FADE_FRAMES:
 				self.setGlow(False)
 
 		# opacity fader
-		if self.glowing and self.glow_alpha < 255:
-			self.glow_alpha += self.glow_speed
-		elif not self.glowing and self.glow_alpha > 0:
-			self.glow_alpha -= self.glow_speed
-		self.glow_alpha = clamp(self.glow_alpha, 0, 255)
+		if self.glowing and self.glow_frame < GLOW_FADE_FRAMES:
+			self.glow_frame += 1
+		elif not self.glowing and self.glow_frame > 0:
+			self.glow_frame -= 1
+		self.glow_frame = clamp(self.glow_frame, 0, GLOW_FADE_FRAMES)
 
 	def blitTo(self, surface):
 		# can't use set_alpha() because image already contains a per-pixel alpha channel
-		if self.glow_alpha != 0:
-			glowA = self.setOpacity(self.glow, self.glow_alpha, self.glow_color)
-			surface.blit(glowA, (self.x, self.y))
+		if self.glow_frame != 0:
+			glow = None
+			if self.glow_color == GLOW_WHITE:
+				glow = self.glow_white[self.glow_frame]
+			elif self.glow_color == GLOW_GREEN:
+				glow = self.glow_green[self.glow_frame]
+			elif self.glow_color == GLOW_YELLOW:
+				glow = self.glow_yellow[self.glow_frame]
+			elif self.glow_color == GLOW_RED:
+				glow = self.glow_red[self.glow_frame]
+
+			if glow != None:
+				surface.blit(glow, (self.x, self.y))
+
 		return super(Planet, self).blitTo(surface)
 
 	def setGlow(self, glow):
@@ -162,7 +187,7 @@ class Planet(DisplayObject):
 		self.setGlow(False)
 
 	def hash(self):
-		return super(Planet, self).hash() + (self.glowing, self.glow_color, self.glow_alpha)
+		return super(Planet, self).hash() + (self.glowing, self.glow_color, self.glow_frame)
 
 
 # renders text
