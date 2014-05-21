@@ -1,7 +1,7 @@
 Planetary
 =========
 
-Solar system game for the XO PC. Teaches kids about the arrangment of the solar system, and about the planets themselves.
+Solar system game for the XO PC. Teaches kids about the arrangment of the solar system, and about the planets themselves. Since the fourth grade science curriculum requires students to know basic astronomical facts, this game helps teach those facts in an interactive way.
 
 ###Requirements
 	Python 2.7
